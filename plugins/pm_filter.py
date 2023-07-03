@@ -1115,7 +1115,8 @@ async def auto_filter(client, msg, spoll=False):
             search = message.text
             requested_movie = search.strip()
             user_id = message.from_user.id
-	    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+	    #user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>
+            user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             files, offset, total_results = await get_search_results(search.lower(), offset=0, filter=True)
             if not files:
 	       # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
