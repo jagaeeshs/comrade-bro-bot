@@ -686,7 +686,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
 
     elif data.startswith("notify_user_not_avail"):
-        _, user_id, movie = data.split(":")
+        _, user_id,user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>', movie = data.split(":")
         # Send message to user
         try:
             btn = [[
