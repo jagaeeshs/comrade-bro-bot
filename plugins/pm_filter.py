@@ -37,6 +37,7 @@ logger.setLevel(logging.ERROR)
 req_channel = REQ_CHANNEL
 BUTTONS = {}
 SPELL_CHECK = {}
+user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
 
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
@@ -306,7 +307,7 @@ async def next_page(bot, query):
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
+        return await query.answer("This Message is not for you. Don't worry you can send new one !", show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
     movies = SPELL_CHECK.get(query.message.reply_to_message.id)
@@ -551,7 +552,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     caption=f_caption,
                     protect_content=True if ident == "filep" else False 
                 )
-                await query.answer('Check PM, I have sent files in pm', show_alert=True)
+                await query.answer('Check in Filmztube BOT, I have sent files in pm', show_alert=True)
         except UserIsBlocked:
             await query.answer('Unblock the bot mahn !', show_alert=True)
         except PeerIdInvalid:
@@ -699,7 +700,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)
             reply_markup = InlineKeyboardMarkup(btn)
-	    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+            #user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+	    
             await client.send_message(int(user_id), f"😒 oops! Hello, Your requested content named `{movie}` is not available right now, we are really trying our best to serve you this cotent.\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Not Available 😒.\n🪪**User** : `{user_link}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -728,7 +730,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)            
             reply_markup = InlineKeyboardMarkup(btn)
-            user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+            #user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"🛋 Hey, Your requested content named `{movie}` is already available in our database! You can easily get this movie by searching it's correct name in our official group...\nSend details to Admin : \n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Already Uploaded ⚡.\n🪪**UserID** : `{user_link}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -756,7 +758,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-	    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+	   # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"✅ Hey, Your requested content named `{movie}` is now available in our database! You can easily get this movie by searching it's correct name in our official group...\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Upload done ✅.\n🪪**UserID** : `{user_link}`\n🎞**Content** : `{movie}`\n\n\n🦋", reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -784,7 +786,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-	    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+	  #  user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"🙇‍♀️ Sorry! Your requested content named `{movie}` is rejected by our **ADMiN**, we are really very sorry for the inconvenience, we can't process your request at the moment...\n\n❤️‍🩹Keep your search environment friendly, sweetheart!", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Request Rejected ❌.\n🪪**UserID** : `{user_link}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -812,7 +814,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-	    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+	   # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"🌍 Your spelling matters.\nThe requested content `{movie}` is available in our database, You were unable to get it because of your spelling mistake.🧐 Please make sure you've spelled correctly while searching content in group...\n\n❤Thank u for supporting us.", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Spelling error 🖊.\n🪪**UserID** : `{user_link}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -1233,7 +1235,7 @@ async def auto_filter(client, msg, spoll=False):
 
     btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ʜᴏᴡ 2 ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='https://telegram.me/netflix_weblinks/13'),
+	    InlineKeyboardButton(text="⚡ʜᴏᴡ 2 ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='https://telegram.me/netflix_weblinks/11'),
         ] 
     )
     if offset != "":
@@ -1283,7 +1285,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"Baby, Here is what i found for your query {search}"
+        cap = f"Hello, Here is what i found for your query {search}"
     if imdb and imdb.get('poster'):
         try:
             z = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
@@ -1352,7 +1354,7 @@ async def advantage_spell_chok(msg):
     movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
-        k = await msg.reply("Hey Sona! The requested content is currently unavailable in our database, have some patience 🙂 - our great admin will upload it as soon as possible \n             **or**\nDiscuss issue with admin here 👉  <a href='https://t.me/Discusss_Here'>Discuss Here</a> ♥️ ")
+        k = await msg.reply("Hey! The requested content is currently unavailable in our database, have some patience 🙂 - our great admin will upload it as soon as possible \n             **or**\nDiscuss issue with admin here 👉  <a href='https://t.me/Discusss_Here'>Discuss Here</a> ♥️ ")
         await asyncio.sleep(10)
         await k.delete()
         return
@@ -1364,7 +1366,7 @@ async def advantage_spell_chok(msg):
         )
     ] for k, movie in enumerate(movielist)]
     btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("Hey Sona! The requested content is currently unavailable in our database, have some patience 🙂 - our great admin will upload it as soon as possible \n              **or**\nDiscuss issue with admin here 👉 <a href='https://t.me/Discusss_Here'>Discuss Here</a> ♥️ ",
+    await msg.reply("Hey! The requested content is currently unavailable in our database, have some patience 🙂 - our great admin will upload it as soon as possible \n              **or**\nDiscuss issue with admin here 👉 <a href='https://t.me/Discusss_Here'>Discuss Here</a> ♥️ ",
                     reply_markup=InlineKeyboardMarkup(btn))
 
 
