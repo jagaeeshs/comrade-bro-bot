@@ -16,3 +16,8 @@ aiofiles
 dnspython
 pynewtonmath
 openai
+httpx==0.16.1
+python-telegram-bot>=13.0
+aiogram
+heroku3
+cinemagoer
