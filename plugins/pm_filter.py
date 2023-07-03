@@ -37,6 +37,7 @@ logger.setLevel(logging.ERROR)
 req_channel = REQ_CHANNEL
 BUTTONS = {}
 SPELL_CHECK = {}
+message = msg
 user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
 
 
