@@ -41,7 +41,7 @@ SPELL_CHECK = {}
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
-    message = msg
+   
     user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
 
     k = await manual_filters(client, message)
