@@ -70,7 +70,7 @@ LAZY_AI_LOGS = int(environ.get("LAZY_AI_LOGS","-1001877472322")) #GIVE YOUR NEW 
 ADMIN_USRNM = environ.get('ADMIN_USRNM','bharath_boy') # WITHOUT @
 MAIN_CHANNEL_USRNM = environ.get('MAIN_CHANNEL_USRNM','filmztube') # WITHOUT @
 DEV_CHANNEL_USRNM = environ.get('DEV_CHANNEL_USRNM','filmz_tube') # WITHOUT @
-LAZY_YT_HANDLE = environ.get('LAZY_YT_HANDLE',none)  # WITHOUT @ [  add only handle - don't add full url  ] 
+LAZY_YT_HANDLE = environ.get('LAZY_YT_HANDLE',None)  # WITHOUT @ [  add only handle - don't add full url  ] 
 MOVIE_GROUP_USERNAME = environ.get('MOVIE_GROUP_USERNAME', "filmz_tube") #[ without @ ]
 
 # Url Shortner
