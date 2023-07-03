@@ -1115,9 +1115,10 @@ async def auto_filter(client, msg, spoll=False):
             search = message.text
             requested_movie = search.strip()
             user_id = message.from_user.id
+	    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             files, offset, total_results = await get_search_results(search.lower(), offset=0, filter=True)
             if not files:
-	        user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+	       # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
                 await client.send_message(req_channel,f"-🦋 #REQUESTED_CONTENT 🦋-\n\n📝**Content Name** :`{search}`\n**Requested By**: {user_link}\n\n🗃️",
                                                                                                        reply_markup=InlineKeyboardMarkup([
                                                                                                                                         [InlineKeyboardButton(text=f"✅Upload Done", callback_data=f"notify_userupl:{user_id}:{requested_movie}")],
