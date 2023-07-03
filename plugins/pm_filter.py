@@ -37,15 +37,17 @@ logger.setLevel(logging.ERROR)
 req_channel = REQ_CHANNEL
 BUTTONS = {}
 SPELL_CHECK = {}
-message = msg
-user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
 
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
+    message = msg
+    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+
     k = await manual_filters(client, message)
     if k == False:
         await auto_filter(client, message)
+	    
 
 @Client.on_callback_query(filters.regex('rename'))
 async def rename(bot,update):
