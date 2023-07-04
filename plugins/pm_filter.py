@@ -330,8 +330,8 @@ async def advantage_spoll_choker(bot, query):
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query()
 async def cb_handler(client: Client , query: CallbackQuery):
-    usersid = query.from_user.id
-    user_link = f'<a href="tg://user?id={usersid}">"Userlink"</a>'
+    #usersid = query.from_user.id
+    #user_link = f'<a href="tg://user?id={usersid}">"Userlink"</a>'
     data = query.data
     if query.data == "close_data":
         await query.message.delete()
