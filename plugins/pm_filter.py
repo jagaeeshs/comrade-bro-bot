@@ -521,7 +521,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             alert = alert.replace("\\n", "\n").replace("\\t", "\t")
             await query.answer(alert, show_alert=True)
     message = await auto_filter(client, query.message)
-    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+    user_link = f'<a href="tg://user?id={user_id}">"Link"</a>'
     if query.data.startswith("file"):
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
