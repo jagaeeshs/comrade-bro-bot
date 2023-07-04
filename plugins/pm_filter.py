@@ -550,7 +550,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             elif settings['botpm']:
                 await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                 return
-	    else:
+            else:
                 button = InlineKeyboardButton('Forward', callback_data=f'forward_{file_id}')
                 markup = InlineKeyboardMarkup([[button]])
 		await client.send_cached_media(
