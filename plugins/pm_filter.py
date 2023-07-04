@@ -541,6 +541,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             f_caption = f_caption
         if f_caption is None:
             f_caption = f"{files.file_name}"
+            f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
 
         try:
             if AUTH_CHANNEL and not await is_subscribed(client, query):
@@ -550,10 +551,14 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                 return
             else:
+            
                 await client.send_cached_media(
+                button = InlineKeyboardButton('Forward', callback_data=f'forward_{file_id}')
+                markup = InlineKeyboardMarkup([[button]])
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
+                    reply_markup=markup,
                     protect_content=True if ident == "filep" else False 
                 )
                 await query.answer('Check in Filmztube BOT, I have sent files in pm', show_alert=True)
@@ -1136,14 +1141,14 @@ async def auto_filter(client, msg, spoll=False):
                                                                                                                                         ]))
                 
                 l = await message.reply_text(text=f"△ 𝙷𝚎𝚢 `{message.from_user.first_name}`, 😎,\n\nʏᴏᴜʀ ʀᴇQᴜᴇꜱᴛ ʜᴀꜱ ʙᴇᴇɴ ꜱᴇɴᴛ ᴛᴏ ᴏᴜʀ **ᴀᴅᴍɪɴ'ꜱ ᴅᴀꜱʜʙᴏᴀʀᴅ** !\nᴘʟᴇᴀꜱᴇ ᴋᴇᴇᴘ ꜱᴏᴍᴇ ᴘᴀᴛɪᴇɴᴄᴇ !\nᴛʜᴇʏ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ ɪᴛ ᴀꜱ ꜱᴏᴏɴ ᴀꜱ ᴘᴏꜱꜱɪʙʟᴇ.\n\n➟ 📝𝘾𝙤𝙣𝙩𝙚𝙣𝙩 𝙣𝙖𝙢𝙚 : `{search}`\n➟ 👮𝙍𝙚𝙦𝙪𝙚𝙨𝙩𝙚𝙙 𝘽𝙮 : {user_link} \n\n JOIN: @{MAIN_CHANNEL_USRNM} \n\n",
-                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔰MAIN CHANNEL🔰", url=f'https://t.me/Filmztube')],[InlineKeyboardButton("🗯 Delete", callback_data="close_data"), InlineKeyboardButton("✪ MOVIES REQUEST GRP ✪", url=f"https://t.me/filmz_tube")],[InlineKeyboardButton("♥️ Thank You ♥", callback_data="close_data")]]))
+                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔰MAIN CHANNEL🔰", url=f'https://t.me/Filmztube')],InlineKeyboardButton("✪ MOVIES REQUEST GRP ✪", url=f"https://t.me/filmz_tube"),[InlineKeyboardButton("♥️ Thank You ♥", callback_data="close_data")]]))
 
                 await asyncio.sleep(20)
                 await l.delete()    
                 if settings["spell_check"]:
                     return await advantage_spell_chok(msg)
                 else:
-                    returnj
+                    return
         else: 
             return
     else:
