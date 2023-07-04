@@ -331,6 +331,7 @@ async def advantage_spoll_choker(bot, query):
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query()
 async def cb_handler(client: Client , query: CallbackQuery):
+    message = await auto_filter(client, query.message)  # Pass the message from the query to auto_filter
     data = query.data
    
     if query.data == "close_data":
