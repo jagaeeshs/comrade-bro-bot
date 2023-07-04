@@ -45,7 +45,7 @@ async def give_filter(client, message):
     k = await manual_filters(client, message)
     if k == False:
         await auto_filter(client, message)
-        await cb_handler(client, message)
+        #await cb_handler(client, message)
 	    
 
 @Client.on_callback_query(filters.regex('rename'))
@@ -520,7 +520,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             alert = alerts[int(i)]
             alert = alert.replace("\\n", "\n").replace("\\t", "\t")
             await query.answer(alert, show_alert=True)
-    user_link = message.from_user.mention#f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
     if query.data.startswith("file"):
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
