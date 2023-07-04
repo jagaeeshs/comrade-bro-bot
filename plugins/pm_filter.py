@@ -582,7 +582,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             except Exception as e:
                 logger.exception(e)
                 f_caption = f_caption
-	user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'	    
+	#user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'	
+	usee_link  = f'a href="tg://user?id={message.from_user_id}">{message,from_user.first_name}</a>'
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
