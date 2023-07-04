@@ -553,7 +553,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             else:
                 button = InlineKeyboardButton('Forward', callback_data=f'forward_{file_id}')
                 markup = InlineKeyboardMarkup([[button]])
-		await client.send_cached_media(
+                await client.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
