@@ -45,7 +45,7 @@ async def give_filter(client, message):
     k = await manual_filters(client, message)
     if k == False:
         await auto_filter(client, message)
-       # await cb_handler(client, message)
+       
 	    
 
 @Client.on_callback_query(filters.regex('rename'))
@@ -331,7 +331,6 @@ async def advantage_spoll_choker(bot, query):
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query()
 async def cb_handler(client: Client , query: CallbackQuery):
-    #message = await auto_filter(client, query.message)  # Pass the message from the query to auto_filter
     data = query.data
     if query.data == "close_data":
         await query.message.delete()
@@ -521,7 +520,6 @@ async def cb_handler(client: Client , query: CallbackQuery):
             alert = alert.replace("\\n", "\n").replace("\\t", "\t")
             await query.answer(alert, show_alert=True)
     message = await auto_filter(client, query.message)
-   # user_link = user_id# f'<a href="tg://user?id={user_id}">"Link"</a>'
     if query.data.startswith("file"):
         ident, file_id = query.data.split("#")
         files_ = await get_file_details(file_id)
@@ -584,8 +582,6 @@ async def cb_handler(client: Client , query: CallbackQuery):
             except Exception as e:
                 logger.exception(e)
                 f_caption = f_caption
-	#user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
-        #user_link = f'<a href="tg://user?id={message.from_user_id}">{message,from_user.first_name}</a>'
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
@@ -688,7 +684,6 @@ async def cb_handler(client: Client , query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
 	)
-    #user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
     elif data.startswith("notify_user_not_avail"):
         _, user_id, movie = data.split(":")
         # Send message to user
@@ -707,7 +702,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)
             reply_markup = InlineKeyboardMarkup(btn)
-            #user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+            
 	    
             await client.send_message(int(user_id), f"😒 oops! Hello, Your requested content named `{movie}` is not available right now, we are really trying our best to serve you this cotent.\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Not Available 😒.\n🪪**User** : {user_link}\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
@@ -737,7 +732,6 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)            
             reply_markup = InlineKeyboardMarkup(btn)
-            #user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"🛋 Hey, Your requested content named `{movie}` is already available in our database! You can easily get this movie by searching it's correct name in our official group...\nSend details to Admin : \n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Already Uploaded ⚡.\n🪪**User** : {user_link}\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -765,14 +759,11 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-	   # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"✅ Hey, Your requested content named `{movie}` is now available in our database! You can easily get this movie by searching it's correct name in our official group...\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Upload done ✅.\n🪪**User** : {user_link}\n🎞**Content** : `{movie}`\n\n\n🦋", reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
             await query.delete()
-        #except Exception as e:
-       # logger.error(f"Error handling callback query: {e}")
         except:
             await query.answer("something went wrong", show_alert = True)
             return
@@ -795,7 +786,6 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-	  #  user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"🙇‍♀️ Sorry! Your requested content named `{movie}` is rejected by our **ADMiN**, we are really very sorry for the inconvenience, we can't process your request at the moment...\n\n❤️‍🩹Keep your search environment friendly, sweetheart!", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Request Rejected ❌.\n🪪**User** : {user_link}\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
@@ -823,7 +813,6 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv) 
             reply_markup = InlineKeyboardMarkup(btn)
-	   # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             await client.send_message(int(user_id), f"🌍 Your spelling matters.\nThe requested content `{movie}` is available in our database, You were unable to get it because of your spelling mistake.🧐 Please make sure you've spelled correctly while searching content in group...\n\n❤Thank u for supporting us.", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully...✅**__\n\n⏳**Status** : Spelling error 🖊.\n🪪**User** : {user_link}\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
