@@ -42,8 +42,6 @@ SPELL_CHECK = {}
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
    
-    user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
-
     k = await manual_filters(client, message)
     if k == False:
         await auto_filter(client, message)
@@ -331,7 +329,7 @@ async def advantage_spoll_choker(bot, query):
 
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query()
-async def cb_handler(client: Client, message: message, query: CallbackQuery):
+async def cb_handler(client: Client, message , query: CallbackQuery):
     data = query.data
     if query.data == "close_data":
         await query.message.delete()
