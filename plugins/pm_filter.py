@@ -45,7 +45,7 @@ async def give_filter(client, message):
     k = await manual_filters(client, message)
     if k == False:
         await auto_filter(client, message)
-        #await cb_handler(client, message)
+        await cb_handler(client, message , data)
 	    
 
 @Client.on_callback_query(filters.regex('rename'))
