@@ -331,9 +331,8 @@ async def advantage_spoll_choker(bot, query):
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query()
 async def cb_handler(client: Client , query: CallbackQuery):
-    message = await auto_filter(client, query.message)  # Pass the message from the query to auto_filter
+    #message = await auto_filter(client, query.message)  # Pass the message from the query to auto_filter
     data = query.data
-   
     if query.data == "close_data":
         await query.message.delete()
     elif query.data == "delallconfirm":
@@ -521,6 +520,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             alert = alerts[int(i)]
             alert = alert.replace("\\n", "\n").replace("\\t", "\t")
             await query.answer(alert, show_alert=True)
+    message = await auto_filter(client, query.message)
     user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
     if query.data.startswith("file"):
         ident, file_id = query.data.split("#")
