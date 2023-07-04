@@ -331,7 +331,7 @@ async def advantage_spoll_choker(bot, query):
 
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
+async def cb_handler(client: Client, message: message, query: CallbackQuery):
     data = query.data
     if query.data == "close_data":
         await query.message.delete()
@@ -584,7 +584,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 logger.exception(e)
                 f_caption = f_caption
 	#user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
-        user_link = f'<a href="tg://user?id={message.from_user_id}">{message,from_user.first_name}</a>'
+        #user_link = f'<a href="tg://user?id={message.from_user_id}">{message,from_user.first_name}</a>'
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
