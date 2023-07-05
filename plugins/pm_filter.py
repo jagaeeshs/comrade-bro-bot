@@ -543,6 +543,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
             except Exception as e:
                 logger.exception(e)
             f_caption = f_caption
+            f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
         if f_caption is None:
             f_caption = f"{files.file_name}"
             f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
