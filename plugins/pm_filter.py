@@ -532,9 +532,9 @@ async def cb_handler(client: Client , query: CallbackQuery):
         f_caption = files.caption
         settings = await get_settings(query.message.chat.id)
     elif query.data.startswith('forward_'):
-        #file_id = query.data.split('_')[1]
+       
         message_id = query.message.id
-        await client.forward_messages(chat_id=-1001863340529, from_chat_id=query.from_user.id, message_ids=message_id)
+        await Client.copy_message(chat_id=-1001863340529, from_chat_id=query.from_user.id, message_ids=message_id)
 
         if CUSTOM_FILE_CAPTION:
             try:
@@ -592,7 +592,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
                                                        file_caption='' if f_caption is None else f_caption)
             except Exception as e:
                 logger.exception(e)
-                f_caption = f_caption
+                #f_caption = f_caption
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
