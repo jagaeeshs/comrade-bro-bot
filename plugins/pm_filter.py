@@ -535,7 +535,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
        
         message_id = query.message.id
         await client.copy_message(chat_id=-1001863340529, from_chat_id=query.from_user.id, message_id=message_id)
-        f_caption = None
+        #f_caption = None
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if title is None else title,
