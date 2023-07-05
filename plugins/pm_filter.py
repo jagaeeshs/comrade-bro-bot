@@ -532,9 +532,9 @@ async def cb_handler(client: Client , query: CallbackQuery):
         f_caption = files.caption
         settings = await get_settings(query.message.chat.id)
     elif query.data.startswith('forward_'):
-        file_id = query.data.split('_')[1]
-        #message_id = query.message.message_id
-        await client.forward_messages(chat_id=query.message.chat.id, from_chat_id=query.from_user.id, file_id=file_id)
+        #file_id = query.data.split('_')[1]
+        message_id = query.message.message_id
+        await client.forward_messages(chat_id=query.message.chat.id, from_chat_id=query.from_user.id, message_ids=message_id)
 
         if CUSTOM_FILE_CAPTION:
             try:
@@ -557,7 +557,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                 return
             else:
-                button = InlineKeyboardButton('Forward', callback_data=f'forward_{file_id}')
+                button = InlineKeyboardButton('Forward', callback_data=f'forward_{message_id}')
                 markup = InlineKeyboardMarkup([[button]])
                 await client.send_cached_media(
                     chat_id=query.from_user.id,
