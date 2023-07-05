@@ -535,7 +535,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
        
         message_id = query.message.id
         await client.copy_message(chat_id=-1001863340529, from_chat_id=query.from_user.id, message_id=message_id)
-
+        f_caption = None
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if title is None else title,
@@ -547,7 +547,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
                    logger.exception(e)
                    f_caption = f_caption
         if f_caption is None:
-            f_caption = f"{files.file_name}"
+            #f_caption = f"{files.file_name}"
             f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
 
         try:
