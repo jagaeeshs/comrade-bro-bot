@@ -531,11 +531,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
         size = get_size(files.file_size)
         f_caption = files.caption
         settings = await get_settings(query.message.chat.id)
-    elif query.data.startswith('forward_'):
-       
-        message_id = query.message.id
-        await client.copy_message(chat_id=-1001863340529, from_chat_id=query.from_user.id, message_id=message_id)
-        #f_caption = None
+    
         if CUSTOM_FILE_CAPTION:
             try:
                 f_caption = CUSTOM_FILE_CAPTION.format(file_name='' if title is None else title,
