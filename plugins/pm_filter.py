@@ -555,8 +555,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 return
             else:
                 button = InlineKeyboardButton('JOIN FAST😼', url='https://t.me/filmztube')
-                markup = InlineKeyboardMarkup(
-			[button])
+                markup = InlineKeyboardMarkup([[button]])
                 await client.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
