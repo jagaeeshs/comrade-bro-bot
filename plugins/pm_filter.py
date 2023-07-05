@@ -1148,7 +1148,7 @@ async def auto_filter(client, msg, spoll=False):
                                                                                                                                         ]))
                 
                 l = await message.reply_text(text=f"△ 𝙷𝚎𝚢 `{message.from_user.first_name}`, 😎,\n\nʏᴏᴜʀ ʀᴇQᴜᴇꜱᴛ ʜᴀꜱ ʙᴇᴇɴ ꜱᴇɴᴛ ᴛᴏ ᴏᴜʀ **ᴀᴅᴍɪɴ'ꜱ ᴅᴀꜱʜʙᴏᴀʀᴅ** !\nᴘʟᴇᴀꜱᴇ ᴋᴇᴇᴘ ꜱᴏᴍᴇ ᴘᴀᴛɪᴇɴᴄᴇ !\nᴛʜᴇʏ ᴡɪʟʟ ᴜᴘʟᴏᴀᴅ ɪᴛ ᴀꜱ ꜱᴏᴏɴ ᴀꜱ ᴘᴏꜱꜱɪʙʟᴇ.\n\n➟ 📝𝘾𝙤𝙣𝙩𝙚𝙣𝙩 𝙣𝙖𝙢𝙚 : `{search}`\n➟ 👮𝙍𝙚𝙦𝙪𝙚𝙨𝙩𝙚𝙙 𝘽𝙮 : {user_link} \n\n JOIN: @{MAIN_CHANNEL_USRNM} \n\n",
-                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔰MAIN CHANNEL🔰", url=f'https://t.me/Filmztube')],InlineKeyboardButton("✪ MOVIES REQUEST GRP ✪", url=f"https://t.me/filmz_tube"),[InlineKeyboardButton("♥️ Thank You ♥", callback_data="close_data")]]))
+                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔰MAIN CHANNEL🔰", url=f'https://t.me/Filmztube')],[InlineKeyboardButton("✪ MOVIES REQUEST GRP ✪", url=f"https://t.me/filmz_tube")],[InlineKeyboardButton("♥️ Thank You ♥", callback_data="close_data")]])
 
                 await asyncio.sleep(20)
                 await l.delete()    
