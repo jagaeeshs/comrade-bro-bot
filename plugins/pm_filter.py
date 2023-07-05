@@ -534,7 +534,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
     elif query.data.startswith('forward_'):
         file_id = query.data.split('_')[1]
         #message_id = query.message.message_id
-        await client.forward_messages(chat_id=query.message.chat.id, from_chat_id=query.from_user.id)
+        await client.forward_messages(chat_id=query.message.chat.id, from_chat_id=query.from_user.id, file_id=file_id)
 
         if CUSTOM_FILE_CAPTION:
             try:
