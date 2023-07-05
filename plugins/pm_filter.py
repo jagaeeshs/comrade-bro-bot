@@ -542,13 +542,13 @@ async def cb_handler(client: Client , query: CallbackQuery):
                                                        file_size='' if size is None else size,
                                                        file_caption='' if f_caption is None else f_caption)
                 
-                f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
+               # f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
             except Exception as e:
                    logger.exception(e)
                    f_caption = f_caption
         if f_caption is None:
-            #f_caption = f"{files.file_name}"
-            f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
+            f_caption = f"{files.file_name}"
+            #f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
 
         try:
             if AUTH_CHANNEL and not await is_subscribed(client, query):
@@ -558,7 +558,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
                 await query.answer(url=f"https://t.me/{temp.U_NAME}?start={ident}_{file_id}")
                 return
             else:
-                button = InlineKeyboardButton('Forward', callback_data=f'forward_{message_id}')
+                button = InlineKeyboardButton('JOIN FAST😼', url='https://t.me/filmztube')
                 markup = InlineKeyboardMarkup([[button]])
                 await client.send_cached_media(
                     chat_id=query.from_user.id,
@@ -592,13 +592,15 @@ async def cb_handler(client: Client , query: CallbackQuery):
                                                        file_size='' if size is None else size,
                                                        file_caption='' if f_caption is None else f_caption)
                 
-                f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
+                #f_caption += "\n\n•This file will be automatically deleted after 24 hours\n•Please save it to saved message or forward it anywhere."
             except Exception as e:
                 logger.exception(e)
                 f_caption = f_caption
         if f_caption is None:
             f_caption = f"{title}"
         await query.answer()
+        button = InlineKeyboardButton('JOIN FAST😼', url='https://t.me/filmztube')
+        markup = InlineKeyboardMarkup([[button]])
         await client.send_cached_media(
             chat_id=query.from_user.id,
             file_id=file_id,
