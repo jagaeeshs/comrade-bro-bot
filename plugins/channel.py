@@ -4,6 +4,8 @@ from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, ADMINS, CHANNELS,
 from database.ia_filterdb import save_file
 import asyncio
 import random
+from pyrogram.errors import FloodWait
+
 
 media_filter = filters.document | filters.video | filters.audio
 
