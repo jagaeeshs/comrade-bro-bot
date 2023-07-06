@@ -4,6 +4,7 @@ from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, ADMINS, CHANNELS,
 from database.ia_filterdb import save_file
 import asyncio
 import random
+from utils import get_size
 from pyrogram.errors import FloodWait
 
 
