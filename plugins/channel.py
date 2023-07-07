@@ -107,7 +107,7 @@ async def x(app, msg):
                         )
                     )
                 await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}\nProcessed Files: {j+1}/{current_batch_files}")
-                col.update_one({'_id': 'last_msg'}, {'$set': {'index': j+1}}, upsert=True)
+                col.update_one({'_id': 'last_msg'}, {'$set': {'index':start_index + j+1}}, upsert=True)
                 await asyncio.sleep(random.randint(1, 3))
             except FloodWait as e:
                 print(f"Sleeping for {e.x} seconds.")
