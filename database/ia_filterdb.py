@@ -40,7 +40,7 @@ async def save_file(media):
     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
     
     # Define the regular expression pattern for series episode names
-    pattern = r"\b(S|E)\d+\b"
+    pattern = r"(?i)(^|\W)(S|E)(\d+)\b(?!\d)"
     
     # Check if the pattern matches any part of the file name
     if re.search(pattern, file_name, re.IGNORECASE):
