@@ -69,7 +69,7 @@ async def x(app, msg):
     await jj.edit(f"Found {len(id_list)} Files In The DB Starting To Send In Chat {args}")
 
     # Batch processing variables
-    batch_size = 1000
+    batch_size = 100
     num_batches = (len(id_list) + batch_size - 1) // batch_size
 
     # Process files in batches starting from the last message index
