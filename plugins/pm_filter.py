@@ -703,9 +703,9 @@ async def cb_handler(client: Client , query: CallbackQuery):
             btn = [[
                 InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🔰 JOIN MAIN 🔰", url=f"https://telegram.me/filmztube")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ JOIN UPDATES 🦋", url=f"https://t.me/+OJPH-0u_62FmZjI9")
 
             ]]
             btn_lzdv = [
@@ -732,9 +732,10 @@ async def cb_handler(client: Client , query: CallbackQuery):
             btn = [[
                 InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🔰 JOIN MAIN 🔰", url=f"https://telegram.me/filmztube")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ JOIN UPDATES 🦋", url=f"https://t.me/+OJPH-0u_62FmZjI9")
+
             ]]
             btn_lzdv = [
                 [
@@ -759,9 +760,9 @@ async def cb_handler(client: Client , query: CallbackQuery):
             btn = [[
                 InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🔰 JOIN MAIN 🔰", url=f"https://telegram.me/filmztube")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ JOIN UPDATES 🦋", url=f"https://t.me/+OJPH-0u_62FmZjI9")
 
             ]]
             btn_lzdv = [
@@ -787,9 +788,10 @@ async def cb_handler(client: Client , query: CallbackQuery):
             btn = [[
                 InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🔰 JOIN MAIN 🔰", url=f"https://telegram.me/filmztube")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ JOIN UPDATES 🦋", url=f"https://t.me/+OJPH-0u_62FmZjI9")
+
             ]]
             btn_lzdv = [
                 [
@@ -814,9 +816,9 @@ async def cb_handler(client: Client , query: CallbackQuery):
             btn = [[
                 InlineKeyboardButton(text=f"🔍 Search Here 🔎", url=f"https://telegram.me/{MOVIE_GROUP_USERNAME}")
             ],[
-                InlineKeyboardButton(text=f"🐞 REPORT ISSUE 🐞", url=f"https://telegram.me/LazyDeveloperSupport")
+                InlineKeyboardButton(text=f"🔰 JOIN MAIN 🔰", url=f"https://telegram.me/filmztube")
             ],[
-                InlineKeyboardButton(text=f"⚡️ Learn Bot Making 🦋", url=f"https://youtube.com/@LazyDeveloperr")
+                InlineKeyboardButton(text=f"⚡️ JOIN UPDATES 🦋", url=f"https://t.me/+OJPH-0u_62FmZjI9")
 
             ]]
             btn_lzdv = [
