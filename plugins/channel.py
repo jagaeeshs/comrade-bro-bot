@@ -74,7 +74,8 @@ async def x(app, msg):
                 await app.send_document(msg.chat.id, i['id'], caption=CUSTOM_FILE_CAPTION.format(file_name=i['file_name'], file_caption=i['file_caption'], file_size=get_size(int(i['file_size']))))
             await jj.edit(f"Found {len(id_list)} Files In The DB Starting To Send In Chat {args}\nProcessed: {j+1}")
             col.update_one({'_id': 'last_msg'}, {'$set': {'index': j}}, upsert=True)
-            await asyncio.sleep(random.randint(2, 5))
+            delay = random.randint(3, 6)
+            await asyncio.sleep(delay)
         except FloodWait as e:
             print(f"Sleeping for {e.value} seconds.")
             await asyncio.sleep(e.value)
@@ -82,6 +83,12 @@ async def x(app, msg):
             print(e)
     await jj.delete()
     await msg.reply_text("Completed")
+
+@Client.on_message(filters.command("resetsend") & filters.user(ADMINS))
+async def reset_send(app, msg):
+    col.update_one({'_id': 'last_msg'}, {'$set': {'index': 0}}, upsert=True)
+    await msg.reply_text("Sending process reset. Files will be sent from the beginning.")
+
 
 @Client.on_message(filters.command("sendkey") & filters.user(ADMINS))
 async def send_messages_with_keyword(app, msg):
