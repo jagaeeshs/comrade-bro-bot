@@ -72,11 +72,19 @@ async def x(app, msg):
     batch_size = 100
     num_batches = (len(id_list) + batch_size - 1) // batch_size
 
+    last_msg_batch = (last_msg - 1) // batch_size
+
     # Process files in batches starting from the last message index
-    for batch in range(last_msg // batch_size, num_batches):
+    for batch in range(last_msg_batch, num_batches):
         start_index = batch * batch_size
         end_index = min((batch + 1) * batch_size, len(id_list))
         batch_files = id_list[start_index:end_index]
+
+        batch_num = batch + 1
+        current_batch_files = len(batch_files)
+        total_files = len(id_list)
+        await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
+
 
         for j, i in enumerate(batch_files, start=start_index):
             try:
