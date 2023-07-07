@@ -73,20 +73,20 @@ async def x(app, msg):
     num_batches = (len(id_list) + batch_size - 1) // batch_size
 
     start_index = (last_msg // batch_size) * batch_size
-
+    start_index = 0
 
     # Process files in batches starting from the last message index
-    for batch in range(last_msg // batch_size, num_batches):
-        start_index = batch * batch_size
+    for batch in range( num_batches):
+       # start_index = batch * batch_size
         end_index = min((batch + 1) * batch_size, len(id_list))
         batch_files = id_list[start_index:end_index]
 
         batch_num = batch + 1
         current_batch_files = len(batch_files)
         total_files = len(id_list)
-        await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
+       # await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
 
-        start_index_within_batch = last_msg - start_index
+        start_index_within_batch = last_msg % batch_size
         for j, i in enumerate(batch_files[start_index_within_batch:], start=start_index_within_batch):
             try:
                 try:
@@ -118,6 +118,8 @@ async def x(app, msg):
                 await asyncio.sleep(e.value)
             except Exception as e:
                 print(e)
+
+        start_index = end_index
 
     await jj.delete()
     await msg.reply_text("Completed")
