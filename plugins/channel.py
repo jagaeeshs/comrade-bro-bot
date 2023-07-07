@@ -85,8 +85,7 @@ async def x(app, msg):
         total_files = len(id_list)
         await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
 
-
-        for j, i in enumerate(batch_files, start=start_index):
+        for j, i in enumerate(batch_files, start=start_index % batch_size):
             try:
                 try:
                     await app.send_video(
@@ -109,18 +108,17 @@ async def x(app, msg):
                             file_size=get_size(int(i['file_size']))
                         )
                     )
-                await jj.edit(f"Found {len(id_list)} Files In The DB Starting To Send In Chat {args}\nProcessed: {j+1}")
-                col.update_one({'_id': 'last_msg'}, {'$set': {'index': j + 1}}, upsert=True)  # Update last_msg index
-                await asyncio.sleep(random.randint(2 , 5))
+                await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}\nProcessed Files: {j+1}/{current_batch_files}")
+                col.update_one({'_id': 'last_msg'}, {'$set': {'index': start_index + j + 1}}, upsert=True)  # Update last_msg index within the batch
+                await asyncio.sleep(random.randint(2, 5))
             except FloodWait as e:
                 print(f"Sleeping for {e.value} seconds.")
-                asyncio.sleep(e.value)
+                await asyncio.sleep(e.value)
             except Exception as e:
                 print(e)
 
     await jj.delete()
     await msg.reply_text("Completed")
-
 
 
 '''@Client.on_message(filters.command("sendall") & filters.user(ADMINS))
