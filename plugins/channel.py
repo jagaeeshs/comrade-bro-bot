@@ -111,8 +111,8 @@ async def x(app, msg):
                 col.update_one({'_id': 'last_msg'}, {'$set': {'index':start_index + j+1}}, upsert=True)
                 await asyncio.sleep(random.randint(1, 3))
             except FloodWait as e:
-                print(f"Sleeping for {e.x} seconds.")
-                await asyncio.sleep(e.x)
+                print(f"Sleeping for {e.value} seconds.")
+                await asyncio.sleep(e.value)
             except Exception as e:
                 print(e)
 
@@ -204,8 +204,8 @@ async def send_messages_with_keyword(app, msg):
             
             await asyncio.sleep(random.randint(3,6))
         except FloodWait as e:
-            print(f"Sleeping for {e.x} seconds.")
-            await asyncio.sleep(e.x)
+            print(f"Sleeping for {e.value} seconds.")
+            await asyncio.sleep(e.value)
         except Exception as e:
             print(e)
             #await jj.delete()
