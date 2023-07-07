@@ -40,12 +40,13 @@ async def save_file(media):
     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
     
     # Define the regular expression pattern for series episode names
-    pattern = r"(?i)(^|\W)(S|E)(\d+)\b(?!\d)"
+    pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|\b(?=\D)))"
     
-    # Check if the pattern matches any part of the file name
-    if re.search(pattern, file_name, re.IGNORECASE):
+    # Check if the pattern matches the file name
+    if re.search(pattern, file_name):
         logger.warning(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')
         return False, 0
+
 
     
     try:
