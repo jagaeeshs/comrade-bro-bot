@@ -65,7 +65,7 @@ async def x(app, msg):
         last_msg = 0
     else:
         last_msg = last_msg.get('index', 0)
-    id_list = [{'id': document['_id'], 'file_name': document.get('file_name', 'N/A'), 'file_caption': document.get('caption', 'N/A'), 'file_size': document.get('file_size', 'N/A')} for document in documents]
+    id_list = [{'id': document['_id'], 'file_name': document.get('file_name', 'N/A'), 'file_caption': document.get('caption', 'N/A'), 'file_size': document.get('file_size', '0')} for document in documents]
     await jj.edit(f"Found {len(id_list)} Files In The DB Starting To Send In Chat {args}")
 
     # Batch processing variables
@@ -167,7 +167,7 @@ async def send_messages_with_keyword(app, msg):
             'id': document['_id'],
             'file_name': document.get('file_name', 'N/A'),
             'file_caption': document.get('caption', 'N/A'),
-            'file_size': document.get('file_size', 'N/A')
+            'file_size': document.get('file_size', '0')
         } 
         for document in documents
     ]
