@@ -38,7 +38,9 @@ async def save_file(media):
     # TODO: Find better way to get same file_id for same media to avoid duplicates
     file_id, file_ref = unpack_new_file_id(media.file_id)
     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
-    pattern = r"(s\d{2,}|s\d+|e\d{2,}|e\d+)"
+    
+    # Define the regular expression pattern for series episode names
+    pattern = r"\b(S|E)\d+\b"
     
     # Check if the pattern matches any part of the file name
     if re.search(pattern, file_name, re.IGNORECASE):
