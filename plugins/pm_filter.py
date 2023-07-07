@@ -265,7 +265,7 @@ async def next_page(bot, query):
                 ]
     btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="⚡ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='ⓗⓞⓦ ⓣⓞ ⓓⓞⓦⓝⓛⓞⓐⓓ ⓛⓘⓝⓚ')
+	    InlineKeyboardButton(text="⚡ᴊᴏɪɴ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ⚡", url='https://t.me/filmztube')
         ] 
     )
 
