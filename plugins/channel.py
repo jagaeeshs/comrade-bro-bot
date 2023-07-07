@@ -87,7 +87,7 @@ async def x(app, msg):
         total_files = len(id_list)
         #await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
 
-        for j, i in enumerate(batch_files, start=last_msg_index):
+        for j, i in enumerate(batch_files, start=last_msg_index if batch == last_msg_batch else 0):
             try:
                 try:
                     await app.send_video(
@@ -119,7 +119,7 @@ async def x(app, msg):
             except Exception as e:
                 print(e)
 
-        last_msg_index = 0
+        
 
     await jj.delete()
     await msg.reply_text("Completed")
