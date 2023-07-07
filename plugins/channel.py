@@ -80,6 +80,7 @@ async def x(app, msg):
 
         batch_num = batch + 1
         current_batch_files = len(batch_files)
+        total_files = len(id_list)
         await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
 
         for j, i in enumerate(batch_files, start=start_index):
