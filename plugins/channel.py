@@ -72,7 +72,7 @@ async def x(app, msg):
     batch_size = 100
     num_batches = (len(id_list) + batch_size - 1) // batch_size
 
-    last_msg_batch = (last_msg - 1) // batch_size
+    last_msg_batch = last_msg // batch_size
     last_msg_index = last_msg % batch_size
 
 
