@@ -44,13 +44,13 @@ async def save_file(media):
 
     
     # Check if the pattern matches the file name
-    if re.search(pattern, file_name):
-        logger.warning(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')
-        return False, 0
-
+    try:
+        # Check if the pattern matches the file name
+        if re.search(pattern, file_name):
+            raise ValueError(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')
 
     
-    try:
+    
         file = Media(
             file_id=file_id,
             file_ref=file_ref,
