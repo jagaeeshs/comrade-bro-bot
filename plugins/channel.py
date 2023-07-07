@@ -72,6 +72,9 @@ async def x(app, msg):
     batch_size = 100
     num_batches = (len(id_list) + batch_size - 1) // batch_size
 
+    start_index = (last_msg // batch_size) * batch_size
+
+
     # Process files in batches starting from the last message index
     for batch in range(last_msg // batch_size, num_batches):
         start_index = batch * batch_size
@@ -107,9 +110,9 @@ async def x(app, msg):
                             file_size=get_size(int(i['file_size']))
                         )
                     )
-                await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}\nProcessed Files: {j+1}/{current_batch_files}")
+                await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}\nProcessed Files: {max(0, j + 1)}/{current_batch_files}")
                 col.update_one({'_id': 'last_msg'}, {'$set': {'index':start_index + j+1}}, upsert=True)
-                await asyncio.sleep(random.randint(4, 5))
+                await asyncio.sleep(random.randint(4, 6))
             except FloodWait as e:
                 print(f"Sleeping for {e.value} seconds.")
                 await asyncio.sleep(e.value)
