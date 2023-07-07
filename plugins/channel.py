@@ -65,29 +65,20 @@ async def x(app, msg):
         last_msg = 0
     else:
         last_msg = last_msg.get('index', 0)
-    id_list = [{'id': document['_id'], 'file_name': document.get('file_name', 'N/A'), 'file_caption': document.get('caption', 'N/A'), 'file_size': document.get('file_size', '0')} for document in documents]
+    id_list = [{'id': document['_id'], 'file_name': document.get('file_name', 'N/A'), 'file_caption': document.get('caption', 'N/A'), 'file_size': document.get('file_size', 'N/A')} for document in documents]
     await jj.edit(f"Found {len(id_list)} Files In The DB Starting To Send In Chat {args}")
 
     # Batch processing variables
     batch_size = 100
     num_batches = (len(id_list) + batch_size - 1) // batch_size
 
-    start_index = (last_msg // batch_size) * batch_size
-    start_index = 0
-
     # Process files in batches starting from the last message index
-    for batch in range( num_batches):
-       # start_index = batch * batch_size
+    for batch in range(last_msg // batch_size, num_batches):
+        start_index = batch * batch_size
         end_index = min((batch + 1) * batch_size, len(id_list))
         batch_files = id_list[start_index:end_index]
 
-        batch_num = batch + 1
-        current_batch_files = len(batch_files)
-        total_files = len(id_list)
-       # await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}")
-
-        start_index_within_batch = last_msg % batch_size
-        for j, i in enumerate(batch_files[start_index_within_batch:], start=start_index_within_batch):
+        for j, i in enumerate(batch_files, start=start_index):
             try:
                 try:
                     await app.send_video(
@@ -110,19 +101,18 @@ async def x(app, msg):
                             file_size=get_size(int(i['file_size']))
                         )
                     )
-                await jj.edit(f"Found {total_files} Files In The DB Starting To Send In Chat {args}\nProcessing Batch {batch_num}/{num_batches}\nCurrent Batch Files: {current_batch_files}\nProcessed Files: {max(0, j + 1)}/{current_batch_files}")
-                col.update_one({'_id': 'last_msg'}, {'$set': {'index':start_index + j+1}}, upsert=True)
-                await asyncio.sleep(random.randint(3 , 6))
+                await jj.edit(f"Found {len(id_list)} Files In The DB Starting To Send In Chat {args}\nProcessed: {j+1}")
+                col.update_one({'_id': 'last_msg'}, {'$set': {'index': j + 1}}, upsert=True)  # Update last_msg index
+                await asyncio.sleep(random.randint(3, 5))
             except FloodWait as e:
                 print(f"Sleeping for {e.value} seconds.")
-                await asyncio.sleep(e.value)
+                await asyncio.sleep(e.vlaue)
             except Exception as e:
                 print(e)
 
-        start_index = end_index
-
     await jj.delete()
     await msg.reply_text("Completed")
+
 
 
 '''@Client.on_message(filters.command("sendall") & filters.user(ADMINS))
