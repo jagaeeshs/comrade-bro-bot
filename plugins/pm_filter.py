@@ -306,12 +306,14 @@ async def next_page(bot, query):
 async def language_check(bot, query):
     _, userid, language = query.data.split("#")
     if int(userid) not in [query.from_user.id, 0]:
-        return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
     if language == "unknown":
         return await query.answer("Sᴇʟᴇᴄᴛ ᴀɴʏ ʟᴀɴɢᴜᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs !", show_alert=True)
     movie = temp.KEYWORD.get(query.from_user.id)
     if not movie:
-        return await query.answer(script.OLD_ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+        return await query.answer("You are using one of my old messages, please send the request again.", show_alert=True)
+       # return
+
     if language != "home":
         movie = f"{movie} {language}"
     files, offset, total_results = await get_search_results(query.message.chat.id, movie, offset=0, filter=True)
