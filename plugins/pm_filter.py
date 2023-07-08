@@ -341,79 +341,80 @@ async def language_check(bot, query):
                     ]
                     for file in files
                     ]
-        else:
-            btn = [
-                [
-                    InlineKeyboardButton(
-                        text=f"[{get_size(file.file_size)}] {file.file_name}", 
-                        url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
-                    ),
-                ]
-                for file in files
-                ]
             else:
                 btn = [
                     [
                         InlineKeyboardButton(
-                            text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                            text=f"[{get_size(file.file_size)}] {file.file_name}", 
+                            url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")
                         ),
                     ]
                     for file in files
-                ]
-
-    else:
-        if URL_MODE is True:
-            if query.from_user.id in ADMINS:
-                btn = [
-                    [
-                        InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
-                    ]
-                    for file in files
-                ]
-            elif query.from_user.id in LZURL_PRIME_USERS:
-                btn = [
-                    [
-                        InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
-                    ]
-                    for file in files
-                ]
-            else:
-                btn = [
-                    query[
-                        InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
-                        InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
-                    ]
-                    for file in files
-                ]
+	        ]
         else:
-            if query.from_user.id in ADMINS:
-                btn = [
-                    [
-                        InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
-                    ]
-                    for file in files
+            btn = [
+                [
+                    InlineKeyboardButton(
+                        text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                    ),
                 ]
-            else:
-                btn = [
-                    [
-                        InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
-                        InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
-                    ]
-                    for file in files
-                ]
-    btn.insert(0,
-        [ 
-	    InlineKeyboardButton(text="⚡ᴊᴏɪɴ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ⚡", url='https://t.me/filmztube'),
-            InlineKeyboardButton("! Lᴀɴɢᴜᴀɢᴇs !", callback_data=f"select_lang#{userid}")
-	])
+                for file in files
+            ]
 
-        btn.insert(0, [
-            InlineKeyboardButton("⚡ Cʜᴇᴄᴋ Bᴏᴛ PM ⚡", url=f"https://t.me/{temp.U_NAME}")
-        ])
-        if 0 < offset <= 10:
+else:
+    if URL_MODE is True:
+        if query.from_user.id in ADMINS:
+            btn = [
+                [
+                    InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
+                    InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
+                ]
+                for file in files
+            ]
+        elif query.from_user.id in LZURL_PRIME_USERS:
+            btn = [
+                [
+                    InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
+                    InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
+                ]
+                for file in files
+            ]
+        else:
+            btn = [
+                query[
+                    InlineKeyboardButton(text=f"{file.file_name}", url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
+                    InlineKeyboardButton(text=f"[{get_size(file.file_size)}]", url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}")),
+                ]
+                for file in files
+            ]
+    else:
+        if query.from_user.id in ADMINS:
+            btn = [
+                [
+                    InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
+                    InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
+                ]
+                for file in files
+            ]
+        else:
+             btn = [
+                 [
+                    InlineKeyboardButton(text=f"{file.file_name}",callback_data=f'files#{file.file_id}',),
+                    InlineKeyboardButton(text=f"{get_size(file.file_size)}",callback_data=f'files#{file.file_id}',),
+                 ]
+                for file in files
+            ]
+btn.insert(0,
+    [ 
+        InlineKeyboardButton(text="⚡ᴊᴏɪɴ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ⚡", url='https://t.me/filmztube'),
+        InlineKeyboardButton("! Lᴀɴɢᴜᴀɢᴇs !", callback_data=f"select_lang#{userid}"
+   ])
+
+btn.insert(0, 
+    [
+        InlineKeyboardButton("⚡ Cʜᴇᴄᴋ Bᴏᴛ PM ⚡", url=f"https://t.me/{temp.U_NAME}")
+    ])
+    if 0 < offset <= 10:
         off_set = 0
     elif offset == 0:
         off_set = None
