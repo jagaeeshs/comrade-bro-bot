@@ -341,7 +341,7 @@ async def language_check(bot, query):
                     ]
                     for file in files
                     ]
-         else:
+        else:
             btn = [
                 [
                     InlineKeyboardButton(
