@@ -165,6 +165,16 @@ async def start(client, message):
                     file_id=msg.get("file_id"),
                     caption=f_caption,
                     protect_content=msg.get('protect', False),
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                         [
+                          InlineKeyboardButton('Sᴜᴘᴘᴏʀᴛ Gʀᴏᴜᴘ', url='https://t.me/+nql2bD_RwpQ2OGNl'),
+                          InlineKeyboardButton('Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ', url='https://t.me/+OJPH-0u_62FmZjI9')
+                       ],[
+                          InlineKeyboardButton("⚜️ ᴍᴀɪɴ ᴄʜᴀɴɴᴇʟ ⚜️", url="https://t.me/+w0K0MEA4lRhmZjE1")
+                         ]
+                        ]
+                    )
                     )
             except Exception as e:
                 logger.warning(e, exc_info=True)
