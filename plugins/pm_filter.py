@@ -1446,7 +1446,7 @@ async def auto_filter(client, msg, spoll=False):
     btn.insert(0, 
         [
             InlineKeyboardButton("⚡ Cʜᴇᴄᴋ Bᴏᴛ PM ⚡", url=f"https://t.me/{temp.U_NAME}")
-	]
+	])
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
         BUTTONS[key] = search
