@@ -1328,8 +1328,11 @@ async def auto_filter(client, msg, spoll=False):
             user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
             files, offset, total_results = await get_search_results(search.lower(), offset=0, filter=True)
             if not files:
+                if settings["spell_check"]:
+                    return await advantage_spell_chok(client,msg)
+		else:
 	       # user_link = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
-                await client.send_message(req_channel,f"-🦋 #REQUESTED_CONTENT 🦋-\n\n📝**Content Name** :`{search}`\n**Requested By**: {user_link}\n\n🗃️",
+                    await client.send_message(req_channel,f"-🦋 #REQUESTED_CONTENT 🦋-\n\n📝**Content Name** :`{search}`\n**Requested By**: {user_link}\n\n🗃️",
                                                                                                        reply_markup=InlineKeyboardMarkup([
                                                                                                                                         [InlineKeyboardButton(text=f"✅Upload Done", callback_data=f"notify_userupl:{user_id}:{requested_movie}")],
                                                                                                                                         [InlineKeyboardButton(text=f"⚡Already Upl..", callback_data=f"notify_user_alrupl:{user_id}:{requested_movie}"),InlineKeyboardButton("🖊Spell Error", callback_data=f"notify_user_spelling_error:{user_id}:{requested_movie}")],
@@ -1341,17 +1344,16 @@ async def auto_filter(client, msg, spoll=False):
                 )
 
                 await asyncio.sleep(20)
-                await l.delete()    
-                if settings["spell_check"]:
-                    return await advantage_spell_chok(msg)
-                else:
-                    return
+                await l.delete() 
+                return
+                    
         else: 
             return
     else:
         settings = await get_settings(msg.message.chat.id)
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
+	temp.KEYWORD[message.from_user.id] = search
     pre = 'filep' if settings['file_secure'] else 'file'
     if settings["button"]:
             if URL_MODE is True:
