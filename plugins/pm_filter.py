@@ -1353,7 +1353,7 @@ async def auto_filter(client, msg, spoll=False):
         settings = await get_settings(msg.message.chat.id)
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
-	temp.KEYWORD[message.from_user.id] = search
+        temp.KEYWORD[message.from_user.id] = search
     pre = 'filep' if settings['file_secure'] else 'file'
     if settings["button"]:
             if URL_MODE is True:
