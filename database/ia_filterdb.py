@@ -191,6 +191,7 @@ def is_file_part_of_series(media):
 
     # Check if the pattern matches the file name
     if re.search(pattern, file_name):
-        raise ValueError(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')
+        logger.warning(f'{file_name} is a series episode, skipping')
+        return True
 
     return False
