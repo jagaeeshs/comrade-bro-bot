@@ -205,7 +205,7 @@ def is_file_part_of_series(media):
 
 
 
-@Client.on_message(filters.command("skipseries"))
+@client.on_message(filters.command("skipseries"))
 async def skip_series_command(client, message):
     global skip_series
 
@@ -216,7 +216,7 @@ async def skip_series_command(client, message):
 
     await message.reply("Toggle series skipping:", reply_markup=keyboard)
 
-@Client.on_callback_query()
+@client.on_callback_query()
 async def handle_callback(client, callback_query):
     global skip_series
 
