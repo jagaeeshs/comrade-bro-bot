@@ -618,3 +618,33 @@ async def save_template(client, message):
     template = message.text.split(" ", 1)[1]
     await save_group_settings(grp_id, 'template', template)
     await sts.edit(f"Successfully changed template for {title} to\n\n{template}")
+
+
+
+@Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
+async def skip_series_command(bot, message):
+    global skip_series
+
+    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
+    callback_data = "disable_series" if skip_series else "enable_series"
+    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
+    keyboard = InlineKeyboardMarkup([[button]])
+
+    await message.reply("Toggle series skipping:", reply_markup=keyboard)
+
+@Client.on_callback_query()
+async def handle_callback(bot, callback_query):
+    global skip_series
+
+    if callback_query.data == "enable_series":
+        skip_series = True
+    elif callback_query.data == "disable_series":
+        skip_series = False
+
+    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
+    callback_data = "disable_series" if skip_series else "enable_series"
+    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
+    keyboard = InlineKeyboardMarkup([[button]])
+
+    await callback_query.answer()
+    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
