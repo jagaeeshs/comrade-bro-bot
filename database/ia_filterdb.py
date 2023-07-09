@@ -206,7 +206,7 @@ def is_file_part_of_series(media):
 
 
 
-@Client.on_message(filter.command("skipseries"))
+@Client.on_message(filters.command("skipseries"))
 async def skip_series_command(client, message):
     global skip_series
 
