@@ -634,7 +634,7 @@ async def skip_series_command(bot, message):
     await message.reply("Toggle series skipping:", reply_markup=keyboard)
 
 
-@Client.on_callback_query()
+@Client.on_callback_query(filters.regex("^toggle_series$"))
 async def handle_callback(bot, callback_query):
     '''if callback_query.data == "enable_series":
         set_skip_series(True)
