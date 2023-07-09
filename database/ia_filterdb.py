@@ -39,15 +39,16 @@ class Media(Document):
 skip_series = True
 skip_series_lock = asyncio.Lock()
 
-async def is_skip_series_enabled():
-    global skip_series
-    async with skip_series_lock:
-        return skip_series
+skip_series = True
 
-async def set_skip_series(value):
+def is_skip_series_enabled():
     global skip_series
-    async with skip_series_lock:
-        skip_series = value
+    return skip_series
+
+def set_skip_series(value):
+    global skip_series
+    skip_series = value
+
 
 
 async def save_file(media, skip_series=True):
