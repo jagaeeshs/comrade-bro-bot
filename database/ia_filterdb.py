@@ -3,6 +3,7 @@ from struct import pack
 import re
 import base64
 from pyrogram.file_id import FileId
+from pyrogram import Client, filters, enums
 from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -205,7 +206,7 @@ def is_file_part_of_series(media):
 
 
 
-@client.on_message(filter.command("skipseries"))
+@Client.on_message(filter.command("skipseries"))
 async def skip_series_command(client, message):
     global skip_series
 
@@ -216,7 +217,7 @@ async def skip_series_command(client, message):
 
     await message.reply("Toggle series skipping:", reply_markup=keyboard)
 
-@client.on_callback_query()
+@Client.on_callback_query()
 async def handle_callback(client, callback_query):
     global skip_series
 
