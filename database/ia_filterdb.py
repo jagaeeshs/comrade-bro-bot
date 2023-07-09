@@ -51,9 +51,7 @@ async def save_file(media, skip_series=True):
     file_id, file_ref = unpack_new_file_id(media.file_id)
     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
     
-    # Define the regular expression pattern for series episode names
-   # pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|(?=\D)\b)"
-   # pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|(?=\D)|(?<=\d)(?=\D))"
+    
 
     
 
@@ -207,30 +205,3 @@ def is_file_part_of_series(media):
 
 
 
-@Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
-async def skip_series_command(bot, message):
-    global skip_series
-
-    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
-    callback_data = "disable_series" if skip_series else "enable_series"
-    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
-    keyboard = InlineKeyboardMarkup([[button]])
-
-    await message.reply("Toggle series skipping:", reply_markup=keyboard)
-
-@Client.on_callback_query()
-async def handle_callback(bot, callback_query):
-    global skip_series
-
-    if callback_query.data == "enable_series":
-        skip_series = True
-    elif callback_query.data == "disable_series":
-        skip_series = False
-
-    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
-    callback_data = "disable_series" if skip_series else "enable_series"
-    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
-    keyboard = InlineKeyboardMarkup([[button]])
-
-    await callback_query.answer()
-    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
