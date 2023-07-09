@@ -36,8 +36,7 @@ class Media(Document):
         indexes = ('$file_name', )
         collection_name = COLLECTION_NAME
 
-skip_series = True
-skip_series_lock = asyncio.Lock()
+
 
 skip_series = True
 
