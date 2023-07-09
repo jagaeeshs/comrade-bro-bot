@@ -199,9 +199,10 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
         try:
             current = temp.CURRENT
             temp.CANCEL = False
-            series_skip = series_skipped if series_skipped != 0 else False
+            
             async for message in bot.iter_messages(chat, lst_msg_id, temp.CURRENT):
                 if temp.CANCEL:
+                    series_skip = series_skipped if series_skipped != 0 else False
                     await msg.edit(f"Successfully Cancelled!!\n\nSaved <code>{total_files}</code> files to dataBase!\nSeries Episodes skipped: <code>{series_skip}</code>\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media + unsupported}</code>(Unsupported Media - `{unsupported}` )\nErrors Occurred: <code>{errors}</code>")
                     break
                 current += 1
@@ -226,6 +227,7 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
                     continue
                 if is_file_part_of_series(media):
                     series_skipped += 1
+                    series_skip = series_skipped if series_skipped != 0 else False
                     continue
                 media.file_type = message.media.value
                 media.caption = message.caption
@@ -240,4 +242,5 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
             logger.exception(e)
             await msg.edit(f'Error: {e}')
         else:
+            series_skip = series_skipped if series_skipped != 0 else False
             await msg.edit(f'Succesfully saved <code>{total_files}</code> to dataBase!\nSeries Episodes skipped: <code>{series_skip}</code>\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media + unsupported}</code>(Unsupported Media - `{unsupported}` )\nErrors Occurred: <code>{errors}</code>')
