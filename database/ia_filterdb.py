@@ -13,7 +13,7 @@ from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTE
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 # Global variable to control series skipping
-skip_series = True
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -35,6 +35,19 @@ class Media(Document):
     class Meta:
         indexes = ('$file_name', )
         collection_name = COLLECTION_NAME
+
+skip_series = True
+skip_series_lock = asyncio.Lock()
+
+async def is_skip_series_enabled():
+    global skip_series
+    async with skip_series_lock:
+        return skip_series
+
+async def set_skip_series(value):
+    global skip_series
+    async with skip_series_lock:
+        skip_series = value
 
 
 async def save_file(media, skip_series=True):
@@ -199,7 +212,8 @@ def is_file_part_of_series(media):
 
     return False
 
-#//////
+
+
 
 
 
