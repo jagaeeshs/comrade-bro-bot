@@ -206,8 +206,8 @@ def is_file_part_of_series(media):
 
 
 
-@Client.on_message(filters.command("skipseries"))
-async def skip_series_command(client, message):
+@Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
+async def skip_series_command(bot, message):
     global skip_series
 
     toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
@@ -218,7 +218,7 @@ async def skip_series_command(client, message):
     await message.reply("Toggle series skipping:", reply_markup=keyboard)
 
 @Client.on_callback_query()
-async def handle_callback(client, callback_query):
+async def handle_callback(bot, callback_query):
     global skip_series
 
     if callback_query.data == "enable_series":
