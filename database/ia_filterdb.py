@@ -54,9 +54,9 @@ async def save_file(media, skip_series=True):
 
     
     # Check if the pattern matches the file name
-    '''try:
+    try:
         # Check if the pattern matches the file name
-        if re.search(pattern, file_name):
+        '''if re.search(pattern, file_name):
             raise ValueError(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')'''
 
     
