@@ -199,7 +199,7 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
         try:
             current = temp.CURRENT
             temp.CANCEL = False
-            series_skip = series_skipped if series_skipped else False
+            #series_skip = series_skipped if series_skipped else False
             async for message in bot.iter_messages(chat, lst_msg_id, temp.CURRENT):
                 if temp.CANCEL:
                     await msg.edit(f"Successfully Cancelled!!\n\nSaved <code>{total_files}</code> files to dataBase!\nSeries Episodes skipped: <code>{series_skip}</code>\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media + unsupported}</code>(Unsupported Media - `{unsupported}` )\nErrors Occurred: <code>{errors}</code>")
