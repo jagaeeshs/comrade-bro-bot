@@ -32,8 +32,15 @@ class Media(Document):
         collection_name = COLLECTION_NAME
 
 
-async def save_file(media):
+async def save_file(media, skip_series=True):
     """Save file in database"""
+
+
+    # Skip saving if the file is part of a series
+    if skip_series and is_file_part_of_series(media):
+        logger.info(f'Skipping series file: {getattr(media, "file_name", "NO_FILE")}')
+        return False, 3
+
 
     # TODO: Find better way to get same file_id for same media to avoid duplicates
     file_id, file_ref = unpack_new_file_id(media.file_id)
@@ -41,7 +48,7 @@ async def save_file(media):
     
     # Define the regular expression pattern for series episode names
    # pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|(?=\D)\b)"
-    pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|(?=\D)|(?<=\d)(?=\D))"
+   ''' pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|(?=\D)|(?<=\d)(?=\D))"
 
     
 
@@ -50,7 +57,7 @@ async def save_file(media):
     try:
         # Check if the pattern matches the file name
         if re.search(pattern, file_name):
-            raise ValueError(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')
+            raise ValueError(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')'''
 
     
     
@@ -169,3 +176,21 @@ def unpack_new_file_id(new_file_id):
     )
     file_ref = encode_file_ref(decoded.file_reference)
     return file_id, file_ref
+
+
+
+
+
+
+def is_file_part_of_series(media):
+    """Check if the file is part of a series"""
+    #file_name = getattr(media, "file_name", "").strip()
+    file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name))
+    
+    pattern = r"(?i)(^|\W)(S|E)(\d+)(\b(?!\d)|(?=\D)|(?<=\d)(?=\D))"
+
+    # Check if the pattern matches the file name
+    if re.search(pattern, file_name):
+        raise ValueError(f'{getattr(media, "file_name", "NO_FILE")} is a series episode, skipping')
+
+    return False
