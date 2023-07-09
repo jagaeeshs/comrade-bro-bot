@@ -8,7 +8,10 @@ from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+# Global variable to control series skipping
+skip_series = True
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -195,3 +198,37 @@ def is_file_part_of_series(media):
         return True
 
     return False
+
+#//////
+
+
+
+
+
+@Client.on_message(filters.command("skipseries"))
+async def skip_series_command(client, message):
+    global skip_series
+
+    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
+    callback_data = "disable_series" if skip_series else "enable_series"
+    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
+    keyboard = InlineKeyboardMarkup([[button]])
+
+    await message.reply("Toggle series skipping:", reply_markup=keyboard)
+
+@Client.on_callback_query()
+async def handle_callback(client, callback_query):
+    global skip_series
+
+    if callback_query.data == "enable_series":
+        skip_series = True
+    elif callback_query.data == "disable_series":
+        skip_series = False
+
+    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
+    callback_data = "disable_series" if skip_series else "enable_series"
+    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
+    keyboard = InlineKeyboardMarkup([[button]])
+
+    await callback_query.answer()
+    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
