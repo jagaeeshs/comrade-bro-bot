@@ -6,7 +6,7 @@ from Script import script
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.ia_filterdb import Media, get_file_details, unpack_new_file_id
+from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series
 from database.users_chats_db import db
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp
@@ -17,7 +17,7 @@ import base64
 logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
-skip_series = True
+
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
@@ -622,30 +622,30 @@ async def save_template(client, message):
 
 
 
+
+
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
-    global skip_series
-
-    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
-    callback_data = "disable_series" if skip_series else "enable_series"
+    toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
+    callback_data = "disable_series" if is_skip_series_enabled() else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
     await message.reply("Toggle series skipping:", reply_markup=keyboard)
 
+
 @Client.on_callback_query()
 async def handle_callback(bot, callback_query):
-    global skip_series
-
     if callback_query.data == "enable_series":
-        skip_series = True
+        set_skip_series(True)
     elif callback_query.data == "disable_series":
-        skip_series = False
+        set_skip_series(False)
 
-    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
-    callback_data = "disable_series" if skip_series else "enable_series"
+    toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
+    callback_data = "disable_series" if is_skip_series_enabled() else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
     await callback_query.answer()
     await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+
