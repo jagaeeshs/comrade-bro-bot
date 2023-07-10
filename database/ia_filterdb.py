@@ -51,7 +51,7 @@ class Bot(Client):
             sleep_threshold=5,
         )
 
-    async def start(self):
+    
     
 
     async def stop(self, *args):
