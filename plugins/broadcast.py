@@ -12,10 +12,12 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import re
 import json
 import base64
+from settings import get_skip_series, set_skip_series
+
 logger = logging.getLogger(__name__)
 
 
-skip_series = True
+
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
     skip_series = get_skip_series()
