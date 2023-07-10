@@ -38,7 +38,7 @@ class Media(Document):
 
 
 
-skip_series = False
+skip_series = True
 
 def is_skip_series_enabled():
     global skip_series
@@ -50,7 +50,7 @@ def set_skip_series(value):
 
 
 
-async def save_file(media, skip_series=True):
+async def save_file(media, skip_series):
     """Save file in database"""
 
 
