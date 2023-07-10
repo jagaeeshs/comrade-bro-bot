@@ -8,7 +8,7 @@ from info import *
 import json
 import base64
 from info import ADMINS
-from plugins.broadcast import skip_series
+#from plugins.broadcast import skip_series
 from pyrogram.file_id import FileId
 from pyrogram import Client, filters, enums
 from pymongo.errors import DuplicateKeyError
