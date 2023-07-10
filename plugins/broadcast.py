@@ -12,7 +12,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import re
 import json
 import base64
-from settings import get_skip_series, set_skip_series
+from database.ia_filterdb import get_skip_series, set_skip_series
 
 logger = logging.getLogger(__name__)
 
