@@ -17,7 +17,7 @@ import base64
 logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
-skip_series = True
+
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
@@ -622,10 +622,11 @@ async def save_template(client, message):
 
 
 
-
+skip_series = True
 
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
+    global skip_series
     toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
     callback_data = "disable_series" if skip_series else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
