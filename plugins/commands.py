@@ -627,7 +627,7 @@ async def save_template(client, message):
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
     toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
-    callback_data ="toggle_series" # "disable_series" if is_skip_series_enabled() else "enable_series"
+    callback_data = "disable_series" if is_skip_series_enabled() else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
@@ -637,13 +637,13 @@ async def skip_series_command(bot, message):
 @Client.on_callback_query(filters.regex("^toggle_series$"))
 async def handle_callback(bot, callback_query):
     if callback_query.data == "enable_series":
-        set_skip_series(False)
-    elif callback_query.data == "disable_series":
         set_skip_series(True)
+    elif callback_query.data == "disable_series":
+        set_skip_series(False)
     
 
     toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
-    callback_data ="toggle_series" # "disable_series" if is_skip_series_enabled() else "enable_series"
+    callback_data = "disable_series" if is_skip_series_enabled() else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
