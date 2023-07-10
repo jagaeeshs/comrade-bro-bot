@@ -648,5 +648,5 @@ async def handle_callback(bot, callback_query):
     keyboard = InlineKeyboardMarkup([[button]])
 
     await callback_query.answer()
-    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+    await callback_query.message.edit_reply_markup(reply_markup=keyboard, text="Toggle series skipping: " + toggle_text)
 
