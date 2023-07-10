@@ -632,7 +632,7 @@ async def skip_series_command(bot, message):
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
-    filmz = await message.reply(f"Toggle series skipping: {skip_series}", reply_markup=keyboard)
+    await message.reply(f"Toggle series skipping: {skip_series}", reply_markup=keyboard)
 
 
 @Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
@@ -643,7 +643,8 @@ async def handle_callback(bot, callback_query):
         skip_series = True
     elif callback_query.data == "disable_series":
         skip_series = False
-    await filmz.edit(f"Skip Series: {skip_series}")
+    await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+ 
 
     toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
     callback_data = "disable_series" if skip_series else "enable_series"
