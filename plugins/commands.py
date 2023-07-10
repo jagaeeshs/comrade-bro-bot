@@ -642,7 +642,7 @@ async def handle_callback(bot, callback_query):
         skip_series = True
     elif callback_query.data == "disable_series":
         skip_series = False
-    
+    await callback_query.message.edit_text(f"Skip Series: {skip_series}")
 
     toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
     callback_data = "disable_series" if skip_series else "enable_series"
