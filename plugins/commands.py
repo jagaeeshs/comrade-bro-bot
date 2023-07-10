@@ -6,7 +6,7 @@ from Script import script
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series, is_skip_series_enabled, skip_series
+from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series, is_skip_series_enabled
 from database.users_chats_db import db
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp
@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
 
+skip_series = True
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
