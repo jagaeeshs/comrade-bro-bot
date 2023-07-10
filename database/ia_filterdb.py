@@ -38,7 +38,7 @@ class Media(Document):
 
 
 
-skip_series = True
+skip_series = False
 
 def is_skip_series_enabled():
     global skip_series
