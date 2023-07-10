@@ -44,7 +44,15 @@ class Media(Document):
 
 
 
+skip_value = {
+    "skip_series": True
+}
 
+def get_skip_series():
+    return skip_value["skip_series"]
+
+def set_skip_series(value):
+    skip_value["skip_series"] = value
 
 
 
