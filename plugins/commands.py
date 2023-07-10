@@ -6,7 +6,7 @@ from Script import script
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series, is_skip_series_enabled
+from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series, is_skip_series_enabled l, skip_series
 from database.users_chats_db import db
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp
@@ -626,8 +626,8 @@ async def save_template(client, message):
 
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
-    toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
-    callback_data = "disable_series" if is_skip_series_enabled() else "enable_series"
+    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
+    callback_data = "disable_series" if skip_series else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
@@ -642,10 +642,11 @@ async def handle_callback(bot, callback_query):
         set_skip_series(False)
     
 
-    toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
-    callback_data = "disable_series" if is_skip_series_enabled() else "enable_series"
+    toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
+    callback_data = "disable_series" if skip_series else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
+    await callback_query.answer()
     await callback_query.message.edit_reply_markup(reply_markup=keyboard)
     #await callback_query.message.edit_text("Toggle series skipping: " + toggle_text)
