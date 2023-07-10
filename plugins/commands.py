@@ -637,7 +637,7 @@ async def skip_series_command(bot, message):
 
 @Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
 async def handle_callback(bot, callback_query):
-    #global skip_series
+    global skip_series
 
     if callback_query.data == "enable_series":
         skip_series = True
