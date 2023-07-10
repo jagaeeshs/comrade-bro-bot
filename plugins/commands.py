@@ -622,7 +622,7 @@ async def save_template(client, message):
 
 
 
-skip_series = True
+skip_series = False
 
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
