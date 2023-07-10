@@ -48,7 +48,7 @@ async def handle_callback(bot, callback_query):
     await callback_query.answer()
     #await callback_query.message.edit_reply_markup(reply_markup=keyboard)
     #Show the current value of skip_series in the message reply
-    await callback_query.message.edit_text("☮️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☮️" if skip_series else "☯️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴄᴀɴ ᴀsʟᴏ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☯️")
+    await callback_query.message.edit_text("🎈 ᴅᴏɴᴇ!\n\n✖️sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ᴅɪsᴀʙʟᴇᴅ\n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ ☮." if skip_series else "🎈 ᴅᴏɴᴇ,\n\n✔️sᴋɪᴘᴘɴɢ sᴇʀɪᴇs ᴇɴᴀʙʟᴇᴅ \n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ☯.")
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/LazyDeveoper
 async def verupikkals(bot, message):
