@@ -632,7 +632,7 @@ async def skip_series_command(bot, message):
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
-    await message.reply(f"☮️ ᴅɪsᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☮️" if skip_series else f"☯️ ᴇɴᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☯️, reply_markup=keyboard)
+    await message.reply("☮️ ᴅɪsᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☮️" if skip_series else "☯️ ᴇɴᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☯️, reply_markup=keyboard)
 
 
 @Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
@@ -654,5 +654,5 @@ async def handle_callback(bot, callback_query):
     #await callback_query.answer()
     await callback_query.message.edit_reply_markup(reply_markup=keyboard)
     # Show the current value of skip_series in the message reply
-    await callback_query.message.edit_text(f"☮️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☮️" if skip_series else f"☯️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴄᴀɴ ᴀsʟᴏ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☯️")
+    await callback_query.message.edit_text("☮️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☮️" if skip_series else "☯️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴄᴀɴ ᴀsʟᴏ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☯️")
     #await callback_query.message.edit_text("Toggle series skipping: " + toggle_text)
