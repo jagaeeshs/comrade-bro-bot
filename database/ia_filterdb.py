@@ -1,6 +1,11 @@
+import os
+import asyncio
 import logging
 from struct import pack
 import re
+from pyrogram.errors import ChatAdminRequired, FloodWait
+from info import *
+import json
 import base64
 from info import ADMINS
 from pyrogram.file_id import FileId
