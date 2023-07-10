@@ -255,8 +255,6 @@ def is_file_part_of_series(media):
 
 
 
-app = Bot()
-app.run()
 
 
 
