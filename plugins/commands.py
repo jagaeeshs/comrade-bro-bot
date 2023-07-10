@@ -635,7 +635,7 @@ async def skip_series_command(bot, message):
     filmz = await message.reply(f"Toggle series skipping: {skip_series}", reply_markup=keyboard)
 
 
-@Client.on_callback_query(filters.regex("^toggle_series$"))
+@Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
 async def handle_callback(bot, callback_query):
     global skip_series
 
