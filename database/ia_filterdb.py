@@ -62,7 +62,7 @@ async def save_file(media):
 
     
 
-    global skip_series
+    skip_series = get_skip_series()
     # Skip saving if the file is part of a series
     if skip_series and is_file_part_of_series(media):
         logger.info(f'Skipping series file: {getattr(media, "file_name", "NO_FILE")}')
