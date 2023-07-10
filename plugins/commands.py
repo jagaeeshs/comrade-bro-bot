@@ -631,7 +631,7 @@ async def skip_series_command(bot, message):
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
-    await message.reply("Toggle series skipping:", reply_markup=keyboard)
+    await message.reply(f"Toggle series skipping: {skip_series}", reply_markup=keyboard)
 
 
 @Client.on_callback_query(filters.regex("^toggle_series$"))
