@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 skip_series = True
 @Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
 async def skip_series_command(bot, message):
-    
+    skip_series = get_skip_series()
     toggle_text = "𝗗𝗜𝗦𝗔𝗕𝗟𝗘" if skip_series else "𝗘𝗡𝗔𝗕𝗟𝗘"
     callback_data = "disable_series" if skip_series else "enable_series"
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
@@ -29,12 +29,12 @@ async def skip_series_command(bot, message):
 
 @Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
 async def handle_callback(bot, callback_query):
-    global skip_series
+    skip_series = get_skip_series()
 
     if callback_query.data == "enable_series":
-        skip_series = True
+        set_skip_series(True)
     elif callback_query.data == "disable_series":
-        skip_series = False
+        set_skip_series(False)
     
  
 
