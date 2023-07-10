@@ -6,7 +6,7 @@ from Script import script
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series, is_skip_series_enabled, skip_series
+from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, set_skip_series, is_skip_series_enabled
 from database.users_chats_db import db
 from info import *
 from utils import get_settings, get_size, is_subscribed, save_group_settings, temp
@@ -17,7 +17,7 @@ import base64
 logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
-
+skip_series = True
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
@@ -636,10 +636,12 @@ async def skip_series_command(bot, message):
 
 @Client.on_callback_query(filters.regex("^toggle_series$"))
 async def handle_callback(bot, callback_query):
+    global skip_series
+
     if callback_query.data == "enable_series":
-        set_skip_series(True)
+        skip_series = True
     elif callback_query.data == "disable_series":
-        set_skip_series(False)
+        skip_series = False
     
 
     toggle_text = "Disable Series Skipping" if skip_series else "Enable Series Skipping"
