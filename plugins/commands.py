@@ -637,9 +637,9 @@ async def skip_series_command(bot, message):
 @Client.on_callback_query(filters.regex("^toggle_series$"))
 async def handle_callback(bot, callback_query):
     if callback_query.data == "enable_series":
-        set_skip_series(True)
-    elif callback_query.data == "disable_series":
         set_skip_series(False)
+    elif callback_query.data == "disable_series":
+        set_skip_series(True)
     
 
     toggle_text = "Disable Series Skipping" if is_skip_series_enabled() else "Enable Series Skipping"
