@@ -649,7 +649,7 @@ async def handle_callback(bot, callback_query):
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
-    await callback_query.answer()
+    #await callback_query.answer()
     await callback_query.message.edit_reply_markup(reply_markup=keyboard)
     # Show the current value of skip_series in the message reply
     await callback_query.message.edit_text(f"Skip Series: {skip_series}")
