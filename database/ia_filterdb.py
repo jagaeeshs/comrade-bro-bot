@@ -11,7 +11,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 from info import DATABASE_URI, DATABASE_NAME, COLLECTION_NAME, USE_CAPTION_FILTER
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
+from plugins.commands import skip_series
 # Global variable to control series skipping
 
 logger = logging.getLogger(__name__)
@@ -38,7 +38,7 @@ class Media(Document):
 
 
 
-skip_series = True
+#skip_series = True
 
 def is_skip_series_enabled():
     global skip_series
