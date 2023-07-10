@@ -150,47 +150,35 @@ async def send_messages_with_keyword(app, msg):
     await msg.reply_text("Completed")
 
 
-async def get_file_details(query):
-    filter = {'file_id': query}
-    cursor = Media.find(filter)
-    filedetails = await cursor.to_list(length=1)
-    return filedetails
 
+@Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
+async def skip_series_command(bot, message):
+    
+    toggle_text = "𝗗𝗜𝗦𝗔𝗕𝗟𝗘" if skip_series else "𝗘𝗡𝗔𝗕𝗟𝗘"
+    callback_data = "disable_series" if skip_series else "enable_series"
+    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
+    keyboard = InlineKeyboardMarkup([[button]])
 
-def encode_file_id(s: bytes) -> str:
-    r = b""
-    n = 0
+    await message.reply("☮️ ᴅɪsᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☮️" if skip_series else "☯️ ᴇɴᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☯️", reply_markup=keyboard)
+    #await message.reply(f"series skipping stats: ({skip_series})", reply_markup=keyboard)
+skip_series = True
+@Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
+async def handle_callback(bot, callback_query):
+    global skip_series
 
-    for i in s + bytes([22]) + bytes([4]):
-        if i == 0:
-            n += 1
-        else:
-            if n:
-                r += b"\x00" + bytes([n])
-                n = 0
+    if callback_query.data == "enable_series":
+        skip_series = True
+    elif callback_query.data == "disable_series":
+        skip_series = False
+    
+ 
 
-            r += bytes([i])
+    toggle_text = "𝗗𝗜𝗦𝗔𝗕𝗟𝗘" if skip_series else "𝗘𝗡𝗔𝗕𝗟𝗘"
+    callback_data = "disable_series" if skip_series else "enable_series"
+    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
+    keyboard = InlineKeyboardMarkup([[button]])
 
-    return base64.urlsafe_b64encode(r).decode().rstrip("=")
-
-
-def encode_file_ref(file_ref: bytes) -> str:
-    return base64.urlsafe_b64encode(file_ref).decode().rstrip("=")
-
-
-def unpack_new_file_id(new_file_id):
-    """Return file_id, file_ref"""
-    decoded = FileId.decode(new_file_id)
-    file_id = encode_file_id(
-        pack(
-            "<iiqq",
-            int(decoded.file_type),
-            decoded.dc_id,
-            decoded.media_id,
-            decoded.access_hash
-        )
-    )
-    file_ref = encode_file_ref(decoded.file_reference)
-    return file_id, file_ref
-
-
+    await callback_query.answer()
+    #await callback_query.message.edit_reply_markup(reply_markup=keyboard)
+    #Show the current value of skip_series in the message reply
+    await callback_query.message.edit_text("☮️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☮️" if skip_series else "☯️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴄᴀɴ ᴀsʟᴏ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☯️")
