@@ -6,7 +6,7 @@ from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdmin
 from info import ADMINS, LAZY_RENAMERS
 from info import INDEX_REQ_CHANNEL as LOG_CHANNEL
 from info import LAZY_MODE 
-from database.ia_filterdb import save_file, is_file_part_of_series
+from database.ia_filterdb import save_file, is_file_part_of_series, skip_series
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from utils import temp
 import re
@@ -228,7 +228,7 @@ async def index_files_to_db(lst_msg_id, chat, msg, bot):
                     continue
                 if is_file_part_of_series(media):
                     series_skipped += 1
-                    series_skip = series_skipped if series_skipped != 0 else False
+                    series_skip = series_skipped if skip_series else "Not Enabled"
                     continue
                 media.file_type = message.media.value
                 media.caption = message.caption
