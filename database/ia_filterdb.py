@@ -46,20 +46,15 @@ class Media(Document):
 
 #skip_series = True
 
-def is_skip_series_enabled():
-    global skip_series
-    return skip_series
-
-def set_skip_series(value):
-    global skip_series
-    skip_series = value
 
 
 
 async def save_file(media):
     """Save file in database"""
 
-    global skip_series
+    
+
+
     # Skip saving if the file is part of a series
     if skip_series and is_file_part_of_series(media):
         logger.info(f'Skipping series file: {getattr(media, "file_name", "NO_FILE")}')
@@ -213,7 +208,7 @@ def is_file_part_of_series(media):
 
     # Check if the pattern matches the file name
     if re.search(pattern, file_name):
-        logger.warning(f'{file_name} is a series episode, skipping')
+        #logger.warning(f'{file_name} is a series episode, skipping')
         return True
 
 
