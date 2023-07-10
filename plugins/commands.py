@@ -632,7 +632,7 @@ async def skip_series_command(bot, message):
     button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
     keyboard = InlineKeyboardMarkup([[button]])
 
-    await message.reply("☮️ ᴅɪsᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☮️" if skip_series else "☯️ ᴇɴᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☯️, reply_markup=keyboard)
+    await message.reply("☮️ ᴅɪsᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☮️" if skip_series else "☯️ ᴇɴᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☯️", reply_markup=keyboard)
 
 
 @Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
