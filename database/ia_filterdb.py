@@ -8,7 +8,7 @@ from info import *
 import json
 import base64
 from info import ADMINS
-from plugins.channel import skip_series
+from plugins.broadcast import skip_series
 from pyrogram.file_id import FileId
 from pyrogram import Client, filters, enums
 from pymongo.errors import DuplicateKeyError
@@ -23,39 +23,6 @@ import logging.config
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-skip_series =  True
-
-@Client.on_message(filters.command('skipseries') & filters.user(ADMINS))
-async def skip_series_command(bot, message):
-    
-    toggle_text = "𝗗𝗜𝗦𝗔𝗕𝗟𝗘" if skip_series else "𝗘𝗡𝗔𝗕𝗟𝗘"
-    callback_data = "disable_series" if skip_series else "enable_series"
-    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
-    keyboard = InlineKeyboardMarkup([[button]])
-
-    await message.reply("☮️ ᴅɪsᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☮️" if skip_series else "☯️ ᴇɴᴀʙʟᴇ sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ☯️", reply_markup=keyboard)
-    #await message.reply(f"series skipping stats: ({skip_series})", reply_markup=keyboard)
-
-@Client.on_callback_query(filters.regex("^(disable_series|enable_series)$"))
-async def handle_callback(bot, callback_query):
-    global skip_series
-
-    if callback_query.data == "enable_series":
-        skip_series = True
-    elif callback_query.data == "disable_series":
-        skip_series = False
-    
- 
-
-    toggle_text = "𝗗𝗜𝗦𝗔𝗕𝗟𝗘" if skip_series else "𝗘𝗡𝗔𝗕𝗟𝗘"
-    callback_data = "disable_series" if skip_series else "enable_series"
-    button = InlineKeyboardButton(toggle_text, callback_data=callback_data)
-    keyboard = InlineKeyboardMarkup([[button]])
-
-    await callback_query.answer()
-    #await callback_query.message.edit_reply_markup(reply_markup=keyboard)
-    #Show the current value of skip_series in the message reply
-    await callback_query.message.edit_text("☮️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☮️" if skip_series else "☯️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴄᴀɴ ᴀsʟᴏ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☯️")
 
 client = AsyncIOMotorClient(DATABASE_URI)
 db = client[DATABASE_NAME]
