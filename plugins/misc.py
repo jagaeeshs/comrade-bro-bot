@@ -239,21 +239,18 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     imdb = await get_poster(query=movie, id=True)
 
     # Ask user for URL
-    '''await bot.send_message(
+    await bot.send_message(
         chat_id=quer_y.from_user.id,
         text="Please provide the download URL:"
-    )'''
-    url_message = await bot.await_response(
-        filters=Filters.text,
+    )
+    
+    url_message = await bot.ask(
+        query.message.chat.id,
+        'Please provide the download URL:',
+        filters=filters.text,
         chat_id=query.message.chat.id,
         user_id=query.from_user.id
     )
-    # Wait for user's response
-    url_message = await bot.expect_message(
-        from_user=quer_y.from_user.id,
-        chat_id=quer_y.message.chat.id
-    )
-
     download_url = url_message.text
 
     btn = [
