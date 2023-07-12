@@ -156,7 +156,7 @@ async def imdb_search(client, message):
 
 hash_values = {}
 
-@app.on_callback_query(filters.regex('^info_'))
+@Client.on_callback_query(filters.regex('^info_'))
 async def info_button_click_handler(_, callback_query):
     hash = callback_query.data.split('_')[1]
     matched_link = hash_values.get(hash)
