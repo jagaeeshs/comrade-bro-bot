@@ -162,7 +162,8 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
             [
                 InlineKeyboardButton(
                     text='📥 ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
-                    url=download_link[0] if download_link else imdb["url"],
+                    #url=download_link[0] if download_link else imdb["url"],
+                    url="https://t.me/WEB_MOVIES_BOT?start=BATCH-BQADBQADEg4AAoBLaVUaQHO5TL4XThYE"
                 )
             ]
     ]
