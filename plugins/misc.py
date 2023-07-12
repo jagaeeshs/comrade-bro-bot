@@ -253,7 +253,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
         download_url = message.text
 
         # Remove the handler to avoid processing other messages as URL
-        bot.remove_handler(handle_url_message)
+       # bot.remove_handler(handle_url_message)
 
 
     btn = [
