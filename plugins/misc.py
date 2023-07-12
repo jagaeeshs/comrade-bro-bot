@@ -247,7 +247,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     )
 
     # Wait for the user's reply
-    @bot.on_message(filters.reply & filters.user(query.from_user.id))
+    @bot.on_message(filters.reply & filters.user(quer_y.from_user.id))
     async def handle_url_message(message):
         # Get the download URL from the user's reply
         download_url = message.text
