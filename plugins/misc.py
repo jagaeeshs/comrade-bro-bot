@@ -202,7 +202,7 @@ async def imdb_search(client, message):
 
 @Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, query: CallbackQuery):
-    i, movie = query.data.split('#')
+    
     imdb = await get_poster(query=movie, id=True)
     message = query.message.reply_to_message or query.message
     download_link = hash_values.get(query.message.id)
@@ -219,7 +219,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
         ]
     ]
     
-    message = query.message.reply_to_message or query.message
+   # message = query.message.reply_to_message or query.message
     if imdb:
         caption = IMDB_TEMPLATE.format(
             query=imdb['title'],
