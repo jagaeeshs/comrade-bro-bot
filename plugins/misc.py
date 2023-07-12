@@ -313,8 +313,8 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
                 await message.edit(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
             await query.answer()
 
-    await asyncio.sleep(10)  # Adjust the sleep time if needed
-    bot.remove_handler(handle_url_message)
+    #await asyncio.sleep(10)  # Adjust the sleep time if needed
+  #  bot.remove_handler(handle_url_message)
 
 
 
