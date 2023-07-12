@@ -291,15 +291,11 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
                     poster=imdb['poster'],
                     plot=imdb['plot'],
                     rating=imdb['rating'],
-                    url=imdb['url'],
+                    url=download_url,
                     **locals()
                 )
+            
             else:
-                caption = "No Results"
-            message = query.message.reply_to_message or query.message
-            await message.reply(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
-            await url_message.delete()
-            '''else:
                 caption = "No Results"
 
             message = query.message.reply_to_message or query.message
@@ -319,10 +315,10 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
             await query.answer()
 
     #await asyncio.sleep(10)  # Adjust the sleep time if needed
-  #  bot.remove_handler(handle_url_message)'''
+  #  bot.remove_handler(handle_url_message)
 
 
-            
+         
 
 
 
