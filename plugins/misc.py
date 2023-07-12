@@ -132,7 +132,8 @@ async def who_is(client, message):
 async def imdb_search(client, message):
     if ' ' in message.text:
         k = await message.reply('Searching ImDB')
-        r, title = message.text.split(None, 1)
+        #r, title = message.text.split(None, 1)
+        r, title, *download_link = message.text.split(None, 2)
         movies = await get_poster(title, bulk=True)
         if not movies:
             return await message.reply("No results Found")
@@ -151,19 +152,16 @@ async def imdb_search(client, message):
 
 @Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
-    command = message.text.split(" ")
-    if len(command) < 3:
-        return await message.reply_text("Invalid command format. Please provide both the movie name and the URL.")
-
-    movie = " ".join(command[1:-1])
-    test = command[-1]
+    #i, movie = quer_y.data.split('#')
+    i, movie, *download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
+    
     
     btn = [
             [
                 InlineKeyboardButton(
                     text=f"{imdb.get('title')}",
-                    url= test#imdb['url'],
+                    url=url=download_link[0] if download_link else '',
                 )
             ]
         ]
