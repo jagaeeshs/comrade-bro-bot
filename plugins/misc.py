@@ -141,7 +141,8 @@ async def imdb_search(client, message):
             [
                 InlineKeyboardButton(
                     text=f"{movie.get('title')} - {movie.get('year')}",
-                    callback_data=f"imdb#{movie.movieID}",
+                    callback_data=f"imdb#{movie.movieID}{'#' + download_link[0] if download_link else ''}",
+
                 )
             ]
             for movie in movies
