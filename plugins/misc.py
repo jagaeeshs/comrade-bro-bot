@@ -239,23 +239,22 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     imdb = await get_poster(query=movie, id=True)
 
     # Ask user for URL
-    await bot.send_message(
+    # Send a message with the question and force reply
+    url_message = await bot.send_message(
         chat_id=quer_y.from_user.id,
-        text="Please provide the download URL:"
+        text="Please provide the download URL:",
+        reply_markup=ForceReply()
     )
-    
-    
-    
-    # Wait for the user's response
-    async for message in bot.get_chat_history(
-        chat_id=quer_y.from_user.id,
-        reverse=True,
-        filters=filters.text
-    ):
-        url_message = message
-        break
 
-    download_url = url_message.text
+    # Wait for the user's reply
+    @app.on_message(filters.reply & filters.user(query.from_user.id))
+    async def handle_url_message(message):
+        # Get the download URL from the user's reply
+        download_url = message.text
+
+        # Remove the handler to avoid processing other messages as URL
+        app.remove_handler(handle_url_message)
+
 
     btn = [
         [
