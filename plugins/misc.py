@@ -257,7 +257,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
                 [
                     InlineKeyboardButton(
                         text='📥 ᴅᴏᴡɴʟᴏᴀᴅ',
-                        url=download_url,
+                        url='https://link.tnshort.net/Ymm8a2Nw',
                     )
                 ]
             ]
@@ -291,7 +291,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
                     poster=imdb['poster'],
                     plot=imdb['plot'],
                     rating=imdb['rating'],
-                    url=download_url,
+                    url=imdb['url'],
                     **locals()
                 )
             
