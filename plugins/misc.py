@@ -294,7 +294,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
                     url=imdb['url'],
                     **locals()
                 )
-            else:
+            '''else:
                 caption = "No Results"
 
             message = query.message.reply_to_message or query.message
@@ -314,7 +314,14 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
             await query.answer()
 
     #await asyncio.sleep(10)  # Adjust the sleep time if needed
-  #  bot.remove_handler(handle_url_message)
+  #  bot.remove_handler(handle_url_message)'''
+
+
+            else:
+                caption = "No Results"
+            message = query.message.reply_to_message or query.message
+            await message.reply(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+            await url_message.delete()
 
 
 
