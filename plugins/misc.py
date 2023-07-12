@@ -153,11 +153,12 @@ async def imdb_search(client, message):
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     i, movie = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
+    test = "https://link.tnshort.net/Ymm8a2Nw"
     btn = [
             [
                 InlineKeyboardButton(
                     text=f"{imdb.get('title')}",
-                    url=imdb['url'],
+                    url= test#imdb['url'],
                 )
             ]
         ]
@@ -212,7 +213,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     await quer_y.answer()
 
 
-@Client.on_message(filters.command("getpost"))
+'''@Client.on_message(filters.command("getpost"))
 async def imdb_search(client, message):
     if ' ' in message.text:
         k = await message.reply('Searching ImDB')
@@ -315,7 +316,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
             await query.answer()
 
     #await asyncio.sleep(10)  # Adjust the sleep time if needed
-  #  bot.remove_handler(handle_url_message)
+  #  bot.remove_handler(handle_url_message)'''
 
 
          
