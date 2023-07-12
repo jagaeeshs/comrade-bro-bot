@@ -151,9 +151,14 @@ async def imdb_search(client, message):
 
 @Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
-    i, movie = quer_y.data.split('#')
+    command = message.text.split(" ")
+    if len(command) < 3:
+        return await message.reply_text("Invalid command format. Please provide both the movie name and the URL.")
+
+    movie = " ".join(command[1:-1])
+    test = command[-1]
     imdb = await get_poster(query=movie, id=True)
-    test = message.command[1]
+    
     btn = [
             [
                 InlineKeyboardButton(
