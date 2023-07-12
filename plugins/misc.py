@@ -248,7 +248,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     # Wait for the user's response
     url_message = await bot.get_messages(
-        chat_id=query.from_user.id,
+        chat_id=quer_y.from_user.id,
         filters=filters.text
     )
 
