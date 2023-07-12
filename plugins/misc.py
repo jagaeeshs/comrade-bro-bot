@@ -161,7 +161,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     btn = [
             [
                 InlineKeyboardButton(
-                    text='📥ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
+                    text='📥 ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
                     url=download_link[0] if download_link else imdb["url"],
                 )
             ]
@@ -210,10 +210,10 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
             await quer_y.message.reply_photo(photo=poster, caption=caption, reply_markup=InlineKeyboardMarkup(btn))
         except Exception as e:
             logger.exception(e)
-            await quer_y.message.reply(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+            await quer_y.message.reply(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
         await quer_y.message.delete()
     else:
-        await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+        await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
     await quer_y.answer()
 
 
