@@ -153,7 +153,7 @@ async def imdb_search(client, message):
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     i, movie = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    test = "https://link.tnshort.net/Ymm8a2Nw"
+    test = message.command[1]
     btn = [
             [
                 InlineKeyboardButton(
