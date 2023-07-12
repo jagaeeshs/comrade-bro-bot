@@ -157,7 +157,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     imdb = await get_poster(query=movie, id=True)
     
     # Get the custom URL from the command input
-    custom_url = query.message.text.split()[1]  # Assuming the custom URL is the second word in the command
+    custom_url = quer_y.message.text.split()[1]  # Assuming the custom URL is the second word in the command
 
     # Create an inline query button with a unique switch_inline_query parameter
     btn = [
