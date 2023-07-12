@@ -161,7 +161,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{imdb.get('title')}",
+                    text='📥ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
                     url=download_link[0] if download_link else imdb["url"],
                 )
             ]
@@ -217,95 +217,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     await quer_y.answer()
 
 
-'''@Client.on_message(filters.command("getpost"))
-async def imdb_search(client, message):
-    if ' ' in message.text:
-        k = await message.reply('Searching ImDB')
-        r, title = message.text.split(None, 1)
-        movies = await get_poster(title, bulk=True)
-        if not movies:
-            return await message.reply("No results Found")
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{movie.get('title')} - {movie.get('year')}",
-                    callback_data=f"post#{movie.movieID}",
-                )
-            ]
-            for movie in movies
-        ]
-        await k.edit('JOIN @FILMZTUBE', reply_markup=InlineKeyboardMarkup(btn))
-    else:
-        await message.reply('Give me a movie / series Name')
-
-
-@Client.on_callback_query(filters.regex('^post'))
-async def imdb_callback(bot: Client, query: CallbackQuery):
-    i, movie = query.data.split('#')
-    imdb = await get_poster(query=movie, id=True)
-
-    # Ask user for URL
-    # Send a message with the question and force reply
-    url_message = await bot.send_message(
-        chat_id=query.from_user.id,
-        text="Please provide the download URL:",
-        reply_markup=ForceReply()
-    )
-
-    @bot.on_message(filters.reply & filters.user(query.from_user.id))
-    async def handle_url_message(message):
-        if message.reply_to_message and message.reply_to_message.message_id == url_message.message_id:
-            # Get the download URL from the user's reply
-            download_url = message.text
-
-            btn = [
-                [
-                    InlineKeyboardButton(
-                        text='📥 ᴅᴏᴡɴʟᴏᴀᴅ',
-                        url='https://link.tnshort.net/Ymm8a2Nw',
-                    )
-                ]
-            ]
-
-            if imdb:
-                caption = IMDB_TEMPLATE.format(
-                    query=imdb['title'],
-                    title=imdb['title'],
-                    votes=imdb['votes'],
-                    aka=imdb["aka"],
-                    seasons=imdb["seasons"],
-                    box_office=imdb['box_office'],
-                    localized_title=imdb['localized_title'],
-                    kind=imdb['kind'],
-                    imdb_id=imdb["imdb_id"],
-                    cast=imdb["cast"],
-                    runtime=imdb["runtime"],
-                    countries=imdb["countries"],
-                    certificates=imdb["certificates"],
-                    languages=imdb["languages"],
-                    director=imdb["director"],
-                    writer=imdb["writer"],
-                    producer=imdb["producer"],
-                    composer=imdb["composer"],
-                    cinematographer=imdb["cinematographer"],
-                    music_team=imdb["music_team"],
-                    distributors=imdb["distributors"],
-                    release_date=imdb['release_date'],
-                    year=imdb['year'],
-                    genres=imdb['genres'],
-                    poster=imdb['poster'],
-                    plot=imdb['plot'],
-                    rating=imdb['rating'],
-                    url=imdb['url'],
-                    **locals()
-                )
-            
-            else:
-                caption = "No Results"
-
-            message = query.message.reply_to_message or query.message
-            if imdb.get('poster'):
-                try:
+'                try:
                     await message.reply_photo(photo=imdb['poster'], caption=caption, reply_markup=InlineKeyboardMarkup(btn))
                 except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
                     pic = imdb.get('poster')
@@ -313,16 +225,13 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
                     await message.reply_photo(photo=poster, caption=caption, reply_markup=InlineKeyboardMarkup(btn))
                 except Exception as e:
                     logger.exception(e)
-                    await message.reply(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+                    await message.reply(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
                 await message.delete()
             else:
-                await message.edit(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=False)
+                await message.edit(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
             await query.answer()
 
-    #await asyncio.sleep(10)  # Adjust the sleep time if needed
-  #  bot.remove_handler(handle_url_message)'''
-
-
+    
          
 
 
