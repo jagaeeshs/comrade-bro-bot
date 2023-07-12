@@ -8,7 +8,7 @@ from info import IMDB_TEMPLATE
 from utils import extract_user, get_file_id, get_poster, last_online
 import time
 from datetime import datetime
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ForceReply, Message
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ForceReply
 import logging
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
@@ -201,10 +201,10 @@ async def imdb_search(client, message):
 
 
 @Client.on_callback_query(filters.regex('^imdb'))
-async def imdb_callback(bot: Client, query: CallbackQuery, message: Message):
+async def imdb_callback(bot: Client, query: CallbackQuery):
     i, movie = query.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    
+    message = query.message.reply_to_message or query.message
     download_link = hash_values.get(query.message_id)
     if not download_link:
         return
