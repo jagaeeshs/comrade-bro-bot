@@ -205,7 +205,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
     i, movie = query.data.split('#')
     imdb = await get_poster(query=movie, id=True)
     message = query.message.reply_to_message or query.message
-    download_link = hash_values.get(query.message_id)
+    download_link = hash_values.get(query.message.message_id)
     if not download_link:
         return
     
