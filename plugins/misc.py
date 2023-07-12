@@ -161,7 +161,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
             [
                 InlineKeyboardButton(
                     text=f"{imdb.get('title')}",
-                    url=url=download_link[0] if download_link else '',
+                    url=download_link[0] if download_link else '',
                 )
             ]
         ]
