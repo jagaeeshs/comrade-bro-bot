@@ -1,4 +1,4 @@
-import os
+ import os
 from pyrogram import Client, filters, enums
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 from info import IMDB_TEMPLATE
@@ -248,7 +248,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     # Wait for the user's response
     async for message in bot.get_chat_history(
-        chat_id=query.from_user.id,
+        chat_id=quer_y.from_user.id,
         reverse=True,
         filters=filters.text
     ):
