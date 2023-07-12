@@ -141,7 +141,7 @@ async def imdb_search(client, message):
             [
                 InlineKeyboardButton(
                     text=f"{movie.get('title')} - {movie.get('year')}",
-                    callback_data=f"imdb#{movie.movieID}"#{'#' + download_link[0] if download_link else ''}",
+                    callback_data=f"imdb#{movie.movieID}{'#' + download_link[0] if download_link else ''}",
 
                 )
             ]
@@ -153,22 +153,8 @@ async def imdb_search(client, message):
 
 @Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
-    i, movie = quer_y.data.split('#')
-    imdb = await get_poster(query=movie, id=True)
     
-    # Get the custom URL from the command input
-    custom_url = quer_y.message.text.split()[1]  # Assuming the custom URL is the second word in the command
-
-    # Create an inline query button with a unique switch_inline_query parameter
-    btn = [
-        [
-            InlineKeyboardButton(
-                text=f"{imdb.get('title')}",
-                switch_inline_query=custom_url  # Set the custom URL as the switch_inline_query parameter
-            )
-        ]
-    ]
-    '''i, movie, *download_link = quer_y.data.split('#')
+    i, movie, *download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
     
     
@@ -179,7 +165,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
                     url=download_link[0] if download_link else imdb["url"],
                 )
             ]
-        ]'''
+    ]
     message = quer_y.message.reply_to_message or quer_y.message
     if imdb:
         caption = IMDB_TEMPLATE.format(
