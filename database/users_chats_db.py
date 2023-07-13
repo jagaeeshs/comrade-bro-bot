@@ -12,9 +12,9 @@ class Database:
 
     def new_user(self, id, name):
         return dict(
-            id = id,
+            id=id,
             name = name,
-            _id=int(id),                                   
+                                               
             file_id=None,
             caption=None,
             ban_status=dict(
