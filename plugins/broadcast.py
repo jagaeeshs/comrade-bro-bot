@@ -13,6 +13,40 @@ import re
 import json
 import base64
 from database.ia_filterdb import get_skip_series, set_skip_series
+@Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
+# https://t.me/LazyDeveoper
+async def verupikkals(bot, message):
+    users = await db.get_all_users()
+    b_msg = message.reply_to_message
+    sts = await message.reply_text(
+        text='Broadcasting your messages...'
+    )
+    start_time = time.time()
+    total_users = await db.total_users_count()
+    done = 0
+    blocked = 0
+    deleted = 0
+    failed =0
+
+    success = 0
+    async for user in users:
+        pti, sh = await broadcast_messages(int(user['id']), b_msg)
+        if pti:
+            success += 1
+        elif pti == False:
+            if sh == "Blocked":
+                blocked+=1
+            elif sh == "Deleted":
+                deleted += 1
+            elif sh == "Error":
+                failed += 1
+        done += 1
+        await asyncio.sleep(2)
+        if not done % 20:
+            await sts.edit(f"Lazy Broadcast is in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")    
+    time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
+    await sts.edit(f"Lazy Broadcast is Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
+
 
 logger = logging.getLogger(__name__)
 
@@ -49,36 +83,3 @@ async def handle_callback(bot, callback_query):
     #await callback_query.message.edit_reply_markup(reply_markup=keyboard)
     #Show the current value of skip_series in the message reply
     await callback_query.message.edit_text("🎈 ᴅᴏɴᴇ!\n\n✖️sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ᴅɪsᴀʙʟᴇᴅ\n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ" if skip_series else "🎈 ᴅᴏɴᴇ!\n\n✔️sᴋɪᴘᴘɴɢ sᴇʀɪᴇs ᴇɴᴀʙʟᴇᴅ \n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ")
-@Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
-# https://t.me/LazyDeveoper
-async def verupikkals(bot, message):
-    users = await db.get_all_users()
-    b_msg = message.reply_to_message
-    sts = await message.reply_text(
-        text='Broadcasting your messages...'
-    )
-    start_time = time.time()
-    total_users = await db.total_users_count()
-    done = 0
-    blocked = 0
-    deleted = 0
-    failed =0
-
-    success = 0
-    async for user in users:
-        pti, sh = await broadcast_messages(int(user['id']), b_msg)
-        if pti:
-            success += 1
-        elif pti == False:
-            if sh == "Blocked":
-                blocked+=1
-            elif sh == "Deleted":
-                deleted += 1
-            elif sh == "Error":
-                failed += 1
-        done += 1
-        await asyncio.sleep(2)
-        if not done % 20:
-            await sts.edit(f"Lazy Broadcast is in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")    
-    time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
-    await sts.edit(f"Lazy Broadcast is Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
