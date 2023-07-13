@@ -1,41 +1,27 @@
-from pyrogram import Client, filters
-import datetime
-import time
-from database.users_chats_db import db
-from info import ADMINS
-from utils import broadcast_messages
-import asyncio
-        
-@Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
-# https://t.me/LazyDeveoper
-async def verupikkals(bot, message):
-    users = await db.get_all_users()
-    b_msg = message.reply_to_message
-    sts = await message.reply_text(
-        text='Broadcasting your messages...'
-    )
-    start_time = time.time()
-    total_users = await db.total_users_count()
-    done = 0
-    blocked = 0
-    deleted = 0
-    failed =0
+from pyrogram import Client
+from pyrogram import filters
 
-    success = 0
-    async for user in users:
-        pti, sh = await broadcast_messages(int(user['id']), b_msg)
-        if pti:
-            success += 1
-        elif pti == False:
-            if sh == "Blocked":
-                blocked+=1
-            elif sh == "Deleted":
-                deleted += 1
-            elif sh == "Error":
-                failed += 1
-        done += 1
-        await asyncio.sleep(2)
-        if not done % 20:
-            await sts.edit(f"Lazy Broadcast is in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")    
-    time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
-    await sts.edit(f"Lazy Broadcast is Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
+# Create a Pyrogram client
+app = Client("my_bot", bot_token="5965090572:AAEaBQxjFwnaa2_g__n6nLmnKT7kZPq4sVU")
+
+# Function to handle the broadcast command
+@app.on_message(filters.command("broadcast") & filters.reply)
+def broadcast_command(client, message):
+    # Get the replied message
+    replied_message = message.reply_to_message
+
+    # Check if the replied message exists and is not a broadcast command
+    if replied_message and not replied_message.text.startswith("/broadcast"):
+        # Get the message text
+        broadcast_message = replied_message.text
+
+        # Retrieve all the dialogs (conversations)
+        dialogs = client.iter_dialogs()
+
+        # Iterate over the dialogs and send the broadcast message to each user
+        for dialog in dialogs:
+            user_id = dialog.chat.id
+            client.send_message(chat_id=user_id, text=broadcast_message)
+
+# Start the bot
+app.run()
