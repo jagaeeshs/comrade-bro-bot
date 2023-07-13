@@ -1316,7 +1316,9 @@ async def cb_handler(client: Client , query: CallbackQuery):
 async def auto_filter(client, msg, spoll=False):
     if not spoll:
         message = msg
-        stick = await client.send_sticker(chat_id=message.chat.id, sticker="CAACAgIAAxkBAAEB9LlksCjXNcLSClyKFWYW6LkDb6B5gQACtCMAAphLKUjeub7NKlvk2S8E")
+        #stick = await client.send_sticker(chat_id=message.chat.id, sticker="CAACAgIAAxkBAAEB9LlksCjXNcLSClyKFWYW6LkDb6B5gQACtCMAAphLKUjeub7NKlvk2S8E")
+        stick_id = "CAACAgIAAxkBAAIDC2SwKQwkoG3VNk-4cchWhrb2J2xqAAK0IwACmEspSN65vs0qW-TZLwQ"
+        stick = await message.reply_sticker(sticker=stick_id)
         settings = await get_settings(message.chat.id)
         if message.text.startswith("/"): return  # ignore commands
         if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
@@ -1355,7 +1357,7 @@ async def auto_filter(client, msg, spoll=False):
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
         temp.KEYWORD[message.from_user.id] = search
-    stick = await client.send_sticker(chat_id=message.chat.id, sticker="CAACAgIAAxkBAAEB9LlksCjXNcLSClyKFWYW6LkDb6B5gQACtCMAAphLKUjeub7NKlvk2S8E")
+    #stick = await client.send_sticker(chat_id=message.chat.id, sticker="CAACAgIAAxkBAAEB9LlksCjXNcLSClyKFWYW6LkDb6B5gQACtCMAAphLKUjeub7NKlvk2S8E")
     pre = 'filep' if settings['file_secure'] else 'file'
     if settings["button"]:
             if URL_MODE is True:
