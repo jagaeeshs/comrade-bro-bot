@@ -1354,6 +1354,7 @@ async def auto_filter(client, msg, spoll=False):
         message = msg.message.reply_to_message  # msg will be callback query
         search, files, offset, total_results = spoll
         temp.KEYWORD[message.from_user.id] = search
+    stick = await client.send_sticker(chat_id=message.chat.id, sticker="CAACAgIAAxkBAAEB9LlksCjXNcLSClyKFWYW6LkDb6B5gQACtCMAAphLKUjeub7NKlvk2S8E")
     pre = 'filep' if settings['file_secure'] else 'file'
     if settings["button"]:
             if URL_MODE is True:
@@ -1461,6 +1462,7 @@ async def auto_filter(client, msg, spoll=False):
         btn.append(
             [InlineKeyboardButton(text="🗓 1/1", callback_data="pages")]
         )
+    await stick.delete()
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
     TEMPLATE = settings['template']
     if imdb:
