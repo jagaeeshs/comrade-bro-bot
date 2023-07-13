@@ -1316,6 +1316,7 @@ async def cb_handler(client: Client , query: CallbackQuery):
 async def auto_filter(client, msg, spoll=False):
     if not spoll:
         message = msg
+	stick = await client.send_sticker(chat_id=message.chat.id, sticker="CAACAgIAAxkBAAEB9LlksCjXNcLSClyKFWYW6LkDb6B5gQACtCMAAphLKUjeub7NKlvk2S8E")
         settings = await get_settings(message.chat.id)
         if message.text.startswith("/"): return  # ignore commands
         if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
