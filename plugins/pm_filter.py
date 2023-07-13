@@ -1503,7 +1503,7 @@ async def auto_filter(client, msg, spoll=False):
         try:
             z = await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
                                       reply_markup=InlineKeyboardMarkup(btn))
-    await stick.delete()
+            await stick.delete()
             if SELF_DELETE is True:
                 await asyncio.sleep(SELF_DELETE_SECONDS)
                 await z.delete()
