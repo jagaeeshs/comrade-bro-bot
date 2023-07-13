@@ -658,7 +658,7 @@ async def handle_callback(bot, callback_query):
     await callback_query.message.edit_text("☮️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☮️" if skip_series else "☯️ ᴅᴏɴᴇ,sᴇʀɪᴇs ᴄᴀɴ ᴀsʟᴏ sᴀᴠᴇᴅ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ ɴᴏᴡ ᴏɴ ☯️")"""
 
 
-@app.on_message(filters.command("broadcast") & filters.reply)
+@app.on_message(filters.command("broadcast2") & filters.reply)
 async def broadcast_command(client, message):
     # Get the replied message
     replied_message = message.reply_to_message
