@@ -13,7 +13,9 @@ import re
 import json
 import base64
 from database.ia_filterdb import get_skip_series, set_skip_series
-@Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
+
+
+'''@Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/LazyDeveoper
 async def verupikkals(bot, message):
     users = await db.get_all_users()
@@ -45,10 +47,10 @@ async def verupikkals(bot, message):
         if not done % 20:
             await sts.edit(f"Lazy Broadcast is in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")    
     time_taken = datetime.timedelta(seconds=int(time.time()-start_time))
-    await sts.edit(f"Lazy Broadcast is Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
+    await sts.edit(f"Lazy Broadcast is Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")'''
 
 
-'''logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 
@@ -82,4 +84,4 @@ async def handle_callback(bot, callback_query):
     await callback_query.answer()
     #await callback_query.message.edit_reply_markup(reply_markup=keyboard)
     #Show the current value of skip_series in the message reply
-    await callback_query.message.edit_text("🎈 ᴅᴏɴᴇ!\n\n✖️sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ᴅɪsᴀʙʟᴇᴅ\n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ" if skip_series else "🎈 ᴅᴏɴᴇ!\n\n✔️sᴋɪᴘᴘɴɢ sᴇʀɪᴇs ᴇɴᴀʙʟᴇᴅ \n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ")'''
+    await callback_query.message.edit_text("🎈 ᴅᴏɴᴇ!\n\n✖️sᴋɪᴘᴘɪɴɢ sᴇʀɪᴇs ᴅɪsᴀʙʟᴇᴅ\n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɴᴏᴛ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ" if skip_series else "🎈 ᴅᴏɴᴇ!\n\n✔️sᴋɪᴘᴘɴɢ sᴇʀɪᴇs ᴇɴᴀʙʟᴇᴅ \n\n🗂sᴇʀɪᴇs ᴡɪʟʟ ɢᴇᴛ sᴋɪᴘᴘᴇᴅ ᴡʜᴇɴ ɪɴᴅᴇxɪɴɢ")
