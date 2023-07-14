@@ -10,6 +10,7 @@ import time
 from datetime import datetime
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ForceReply
 import logging
+from utils import get_shortlink
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.ERROR)
 
@@ -200,7 +201,7 @@ async def imdb_search(client, message):
         await message.reply('Give me a movie / series name')
 
 
-@Client.on_callback_query(filters.regex('^imdb'))
+'''@Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, movie = query.data.split('#')
     imdb = await get_poster(query=movie, id=True)
@@ -268,21 +269,21 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
         await message.delete()
     else:
         await message.edit(caption, reply_markup=InlineKeyboardMarkup(btn), disable_web_page_preview=True)
-    await query.answer()
+    await query.answer()'''
 
 
-'''@Client.on_callback_query(filters.regex('^imdb'))
+@Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     i, movie, *download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    
+    link = await get_shortner(download_link[o])
     
     btn = [
             [
                 InlineKeyboardButton(
                     text='📥 ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
-                    url=download_link[0] if download_link else imdb["url"],
+                    url=link if download_link else imdb["url"],
                     #url="https://t.me/WEB_MOVIES_BOT?start=BATCH-BQADBQADEg4AAoBLaVUaQHO5TL4XThYE"
                 )
             ]
@@ -336,7 +337,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
         await quer_y.message.delete()
     else:
         await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
-    await quer_y.answer()'''
+    await quer_y.answer()
 
 
                 
