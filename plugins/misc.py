@@ -251,7 +251,7 @@ async def imdb_post_callback(bot: Client, query: CallbackQuery):
         new_markup = query.message.reply_markup
         new_markup.inline_keyboard.pop()  # Remove the last row containing the "Post to Channel" button
         
-        await query.message.reply_markup = new_markup  # Remove inline keyboard
+        await query.message.edit_reply_markup(reply_markup=new_markup)  # Remove inline keyboard
         message = await query.message.copy(chat_id)
         await query.answer("Message copied to channel!")
     except Exception as e:
