@@ -159,21 +159,27 @@ async def imdb_search(client, message):
 
 
 
-'''@Client.on_callback_query(filters.regex('^imdb'))
+@Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     i, movie, *download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    link = await get_shortlink(download_link[0])
-    #link = download_link[0]
+    link = None
+    if download_link:
+        link = download_link[0]
+
+    # Shorten the link using a URL shortening service
+    short_link = await get_shortlink(link) if link else None
+
+    # Rest of your code...
+
     btn = [
-            [
-                InlineKeyboardButton(
-                    text='📥 ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
-                    url=link if download_link else imdb["url"],
-                    #url="https://t.me/WEB_MOVIES_BOT?start=BATCH-BQADBQADEg4AAoBLaVUaQHO5TL4XThYE"
-                )
-            ]
+        [
+            InlineKeyboardButton(
+                text='📥 Download' if download_link else f"{imdb.get('title')}",
+                url=short_link if short_link else imdb["url"],
+            )
+        ]
     ]
     message = quer_y.message.reply_to_message or quer_y.message
     if imdb:
@@ -224,13 +230,13 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
         await quer_y.message.delete()
     else:
         await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
-    await quer_y.answer()'''
+    await quer_y.answer()
 
 
 
 
 
-@Client.on_message(filters.command(["imdb", "search"]))
+'''@Client.on_message(filters.command(["imdb", "search"]))
 async def imdb_search(client, message):
     if ' ' in message.text:
         k = await message.reply('Searching ImDB')
@@ -328,7 +334,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
         await quer_y.message.delete()
     else:
         await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
-    await quer_y.answer()
+    await quer_y.answer()'''
     
     # Rest of your code...
 
