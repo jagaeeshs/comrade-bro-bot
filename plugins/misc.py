@@ -1,6 +1,7 @@
 import hashlib
 import requests
 import os
+import base64
 import asyncio
 from pyrogram import Client, filters, enums
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
@@ -158,7 +159,7 @@ async def imdb_search(client, message):
 
 
 
-@Client.on_callback_query(filters.regex('^imdb'))
+'''@Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     i, movie, *download_link = quer_y.data.split('#')
@@ -223,7 +224,54 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
         await quer_y.message.delete()
     else:
         await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
-    await quer_y.answer()
+    await quer_y.answer()'''
+
+
+
+
+
+@Client.on_message(filters.command(["imdb", "search"]))
+async def imdb_search(client, message):
+    if ' ' in message.text:
+        k = await message.reply('Searching ImDB')
+        r, title, *download_link = message.text.split(None, 2)
+        movies = await get_poster(title, bulk=True)
+        if not movies:
+            return await message.reply("No results Found")
+        
+        btn = []
+        for movie in movies:
+            callback_data = f"imdb#{movie.movieID}"
+            if download_link:
+                encoded_link = base64.urlsafe_b64encode(download_link[0].encode()).decode()
+                callback_data += f"#{encoded_link}"
+            
+            inline_button = InlineKeyboardButton(
+                text=f"{movie.get('title')} - {movie.get('year')}",
+                callback_data=callback_data
+            )
+            btn.append([inline_button])
+        
+        await k.edit('Here is what I found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
+    else:
+        await message.reply('Give me a movie / series Name')
+
+
+@Client.on_callback_query(filters.regex('^imdb'))
+async def imdb_callback(bot: Client, quer_y: CallbackQuery):
+    i, movie, *download_link = quer_y.data.split('#')
+    imdb = await get_poster(query=movie, id=True)
+    
+    link = None
+    if download_link:
+        encoded_link = download_link[0]
+        try:
+            link = base64.urlsafe_b64decode(encoded_link).decode()
+        except:
+            link = None
+    
+    # Rest of your code...
+}
 
 
                 
