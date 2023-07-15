@@ -151,7 +151,7 @@ async def imdb_search(client, message):
             [
                 InlineKeyboardButton(
                     text=f"{movie.get('title')} - {movie.get('year')}",
-                    callback_data=f"imdb#{movie.movieID}{'#' + short_link if download_link else ''}",
+                    callback_data=f"search#{movie.movieID}{'#' + short_link if download_link else ''}",
 
                 )
             ]
@@ -166,7 +166,7 @@ async def imdb_search(client, message):
 
 
 
-@Client.on_callback_query(filters.regex('^imdb'))
+@Client.on_callback_query(filters.regex('^search'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     parts = quer_y.data.split('#')
