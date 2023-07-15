@@ -277,13 +277,13 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     i, movie, *download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    link = download_link[0]
+    #link = download_link[0]
     
     btn = [
             [
                 InlineKeyboardButton(
                     text='📥 ᴅᴏᴡɴʟᴏᴀᴅ' if download_link else f"{imdb.get('title')}",
-                    url=link if download_link else imdb["url"],
+                    url=download_link[0] if download_link else imdb["url"],
                     #url="https://t.me/WEB_MOVIES_BOT?start=BATCH-BQADBQADEg4AAoBLaVUaQHO5TL4XThYE"
                 )
             ]
