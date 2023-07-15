@@ -248,7 +248,10 @@ async def imdb_post_callback(bot: Client, query: CallbackQuery):
     chat_id = -1001421748926  # Replace with your channel ID
     
     try:
-        query.message.reply_markup = None  # Remove inline keyboard
+        new_markup = query.message.reply_markup
+        new_markup.inline_keyboard.pop()  # Remove the last row containing the "Post to Channel" button
+        
+        await query.message.reply_markup = new_markup  # Remove inline keyboard
         message = await query.message.copy(chat_id)
         await query.answer("Message copied to channel!")
     except Exception as e:
