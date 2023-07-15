@@ -163,8 +163,8 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     i, movie, download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    link = await get_shortlink(download_link[0])
-    
+   # link = await get_shortlink(download_link[0])
+    link = download_link[0]
     btn = [
             [
                 InlineKeyboardButton(
