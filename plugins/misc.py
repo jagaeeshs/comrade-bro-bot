@@ -141,11 +141,15 @@ async def imdb_search(client, message):
         movies = await get_poster(title, bulk=True)
         if not movies:
             return await message.reply("No results Found")
+        for movie in movies:
+            link = download_link[0] if download_link else None
+            short_link = await get_shortlink(link) if link else None
+
         btn = [
             [
                 InlineKeyboardButton(
                     text=f"{movie.get('title')} - {movie.get('year')}",
-                    callback_data=f"imdb#{movie.movieID}{'#' + download_link[0] if download_link else ''}",
+                    callback_data=f"imdb#{movie.movieID}{'#' + short_link if download_link else ''}",
 
                 )
             ]
@@ -164,12 +168,8 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
     i, movie, *download_link = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
-    link = None
-    if download_link:
-        link = download_link[0]
-
-    # Shorten the link using a URL shortening service
-    short_link = await get_shortlink(link) if link else None
+    
+    
 
     # Rest of your code...
 
