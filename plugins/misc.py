@@ -248,7 +248,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
 async def imdb_post_callback(bot: Client, quer_y: CallbackQuery):
     channel_id = -1001421748926  # Replace with the target channel ID
     
-    message_id = int(quer_y.data.split('#')[1])
+    message_id = quer_y.message.id
     imdb_message = await bot.get_messages(quer_y.message.chat.id, message_id)
     
     # Remove the "Post to Channel" button from the IMDb message
