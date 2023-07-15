@@ -185,6 +185,12 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
             )
         ]
     ]
+    btn.append([
+        InlineKeyboardButton(
+            text="Post to Channel",
+            callback_data=f"imdb_post#{quer_y.message.message_id}",
+        )
+    ])
     message = quer_y.message.reply_to_message or quer_y.message
     if imdb:
         caption = IMDB_TEMPLATE.format(
@@ -236,6 +242,13 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
         await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
     await quer_y.answer()
 
+@Client.on_callback_query(filters.regex('^imdb_post'))
+async def imdb_post_callback(bot: Client, quer_y: CallbackQuery):
+    message_id = int(quer_y.data.split('#')[1])
+    channel_id = "-1001421748926"  # Replace with the target channel ID
+    
+    message = await bot.get_messages(quer_y.message.chat.id, message_id)
+    await bot.send_message(channel_id, message.text)
 
 
 
