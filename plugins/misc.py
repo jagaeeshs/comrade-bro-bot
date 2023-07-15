@@ -169,7 +169,8 @@ async def imdb_search(client, message):
 @Client.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot: Client, quer_y: CallbackQuery, short_link:str):
     
-    i, movie, *download_link = quer_y.data.split('#')
+    i, movie_id, short_link = quer_y.data.split('#')
+ 
     imdb = await get_poster(query=movie, id=True)
     
     
