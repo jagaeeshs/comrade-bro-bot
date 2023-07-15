@@ -244,7 +244,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
 
 @Client.on_callback_query(filters.regex('^imdb_post'))
 async def imdb_post_callback(bot: Client, quer_y: CallbackQuery):
-    message_id = int(quer_y.data.split('#')[1])
+    message_id ,short_link= int(quer_y.data.split('#')[1:])
     channel_id = "-1001421748926"  # Replace with the target channel ID
     
     message = await bot.get_messages(quer_y.message.chat.id, message_id)
