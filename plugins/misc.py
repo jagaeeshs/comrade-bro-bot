@@ -249,8 +249,13 @@ async def imdb_post_callback(bot: Client, quer_y: CallbackQuery):
     message_id = int(quer_y.data.split('#')[1])
     channel_id = "-1001421748926"  # Replace with the target channel ID
     
-    message = await bot.get_messages(quer_y.message.chat.id, message_id)
-    await bot.send_message(channel_id, message.text)
+    imdb_message = await bot.get_messages(quer_y.message.chat.id, message_id)
+    
+    # Create a copy of the IMDb message with the download button
+    imdb_copy = await bot.copy_message(chat_id=channel_id, from_chat_id=quer_y.message.chat.id, message_id=imdb_message.message_id, reply_markup=quer_y.message.reply_markup)
+    
+    # Edit the copied message to remove the "Post to Channel" button
+    await bot.edit_message_reply_markup(chat_id=channel_id, message_id=imdb_copy.message_id, reply_markup=None)
 
 
 
