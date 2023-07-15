@@ -141,6 +141,11 @@ async def imdb_search(client, message):
         movies = await get_poster(title, bulk=True)
         if not movies:
             return await message.reply("No results Found")
+
+        for movie in movies:
+            link = download_link[0] if download_link else None
+            short_link = await get_shortlink(link) if link else None
+            
         
         btn = [
             [
@@ -152,10 +157,6 @@ async def imdb_search(client, message):
             ]
             for movie in movies
         ]
-        for movie in movies:
-            link = download_link[0] if download_link else None
-            short_link = await get_shortlink(link) if link else None
-            await imdb_callback(bot=Client, quer_y=CallbackQuery , short_link=short_link)  # Call imdb_callback with short_link
         
         await k.edit('Here is what i found on IMDb', reply_markup=InlineKeyboardMarkup(btn))
     else:
