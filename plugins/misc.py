@@ -243,14 +243,15 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     else:
         await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
     await quer_y.answer()
-
 @Client.on_callback_query(filters.regex('^imdb_post'))
 async def imdb_post_callback(bot: Client, query: CallbackQuery):
     parts = query.data.split('#')
     message_id = int(parts[1])
-
-    # Forward the message to the desired channel
-    channel_id = -1001421748926
-    await bot.forward_message(chat_id=channel_id, from_chat_id=query.message.chat.id, message_id=message_id)
-
-    await query.answer("Message forwarded to channel successfully.")
+    chat_id = -1001421748926  
+    
+    try:
+        message = await bot.copy_message(chat_id=chat_id, from_chat_id=query.message.chat.id, message_id=message_id)
+        await bot.edit_message_reply_markup(chat_id=chat_id, message_id=message.message_id, reply_markup=None)
+        await query.answer("Message copied to channel!")
+    except Exception as e:
+        await query.answer(f"Failed to copy message to channel: {str(e)}", show_alert=True)
