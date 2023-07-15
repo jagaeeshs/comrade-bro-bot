@@ -248,14 +248,15 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
 async def imdb_post_callback(bot: Client, quer_y: CallbackQuery):
     channel_id = -1001421748926  # Replace with the target channel ID
     
-    imdb_message = quer_y.message.reply_to_message
-    imdb_copy = await bot.copy_message(chat_id=channel_id, from_chat_id=quer_y.message.chat.id, message_id=imdb_message.message_id, reply_markup=imdb_message.reply_markup)
+    message_id = int(quer_y.data.split('#')[1])
+    imdb_message = await bot.get_messages(quer_y.message.chat.id, message_id)
     
-    # Remove the "Post to Channel" button from the copied message
-    if imdb_copy.reply_markup:
-        imdb_copy.reply_markup.inline_keyboard = [[button] for row in imdb_copy.reply_markup.inline_keyboard for button in row if button.text != "Post to Channel"]
+    # Remove the "Post to Channel" button from the IMDb message
+    if imdb_message.reply_markup:
+        imdb_message.reply_markup.inline_keyboard = [[button] for row in imdb_message.reply_markup.inline_keyboard for button in row if button.text != "Post to Channel"]
     
-    await imdb_copy.send()
+    await bot.send_message(channel_id, imdb_message.text, reply_markup=imdb_message.reply_markup)
+
 
 
 
