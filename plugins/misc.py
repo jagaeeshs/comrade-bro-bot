@@ -245,20 +245,12 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     await quer_y.answer()
 
 @Client.on_callback_query(filters.regex('^imdb_post'))
-async def imdb_post_callback(bot: Client, quer_y: CallbackQuery):
-    channel_id = -1001421748926  # Replace with the target channel ID
-    
-    message_id = quer_y.message.id
-    imdb_message = await bot.get_messages(quer_y.message.chat.id, message_id)
-    
-    # Remove the "Post to Channel" button from the IMDb message
-    if imdb_message.reply_markup:
-        imdb_message.reply_markup.inline_keyboard = [[button] for row in imdb_message.reply_markup.inline_keyboard for button in row if button.text != "Post to Channel"]
-    
-    await bot.send_message(channel_id, imdb_message.text, reply_markup=imdb_message.reply_markup)
+async def imdb_post_callback(bot: Client, query: CallbackQuery):
+    parts = query.data.split('#')
+    message_id = int(parts[1])
 
+    # Forward the message to the desired channel
+    channel_id = -1001421748926
+    await bot.forward_message(chat_id=channel_id, from_chat_id=query.message.chat.id, message_id=message_id)
 
-
-
-
-            
+    await query.answer("Message forwarded to channel successfully.")
