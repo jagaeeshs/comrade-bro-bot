@@ -252,9 +252,12 @@ async def imdb_post_callback(bot: Client, query: CallbackQuery):
         new_markup.inline_keyboard.pop()  # Remove the last row containing the "Post to Channel" button
         download_button = InlineKeyboardButton(text='How to Download', url="https://t.me/filmztube_openlink/27")
         new_markup.inline_keyboard.append([download_button])
+        sti_id = "CAACAgUAAxkBAAEJtERks0gX078KMdOlHbR72bMDnD2FdQACDgADQ3PJEgsK7SMGumuoLwQ"
         
         await query.message.edit_reply_markup(reply_markup=new_markup)  # Remove inline keyboard
         message = await query.message.copy(chat_id)
+        await bot.send_sticker(chat_id=chat_id, sticker=sti_id)
+
         await query.answer("Message copied to channel!")
     except Exception as e:
         await query.answer(f"Failed to copy message to channel: {str(e)}", show_alert=True)
