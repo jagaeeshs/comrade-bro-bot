@@ -178,33 +178,21 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
 
     # Rest of your code...
-btn = [
-    [
-        InlineKeyboardButton(
-            text='📥 Download' if short_link else f"{imdb.get('title')}",
-            url=short_link if short_link else imdb["url"],
-        )
-    ],
-    [
+
+    btn = [
+        [
+            InlineKeyboardButton(
+                text='📥 Download' if short_link else f"{imdb.get('title')}",
+                url=short_link if short_link else imdb["url"],
+            )
+        ]
+    ]
+    btn.append([
         InlineKeyboardButton(
             text="Post to Channel",
             callback_data=f"imdb_post#{quer_y.message.id}",
-        ),
-        InlineKeyboardButton(
-            text='📥 Download' if short_link else f"{imdb.get('title')}",
-            url=short_link if short_link else imdb["url"],
-        ),
-        InlineKeyboardButton(
-            text='📥 Download' if short_link else f"{imdb.get('title')}",
-            url=short_link if short_link else imdb["url"],
-        ),
-        InlineKeyboardButton(
-            text='📥 Download' if short_link else f"{imdb.get('title')}",
-            url=short_link if short_link else imdb["url"],
-        ),
-    ],
-]
-
+        )
+    ])
     message = quer_y.message.reply_to_message or quer_y.message
     if imdb:
         caption = IMDB_TEMPLATE.format(
