@@ -188,32 +188,27 @@ btn = [
     ]
 ]
 
-btn2 = [
-    [
-        InlineKeyboardButton(
+btn.append([
+    InlineKeyboardButton(
             text='360P 550 MB' if short_link else f"{imdb.get('title')}",
             url=short_link if short_link else imdb["url"],
-        )
-    ]
-]
-
-btn3 = [
-    [
+             )
+])
+     
+btn.append([
         InlineKeyboardButton(
             text='720P 900 MB' if short_link else f"{imdb.get('title')}",
             url=short_link if short_link else imdb["url"],
-        )
-    ]
-]
-
-btn4 = [
-    [
+             )
+])
+    
+btn.append([
         InlineKeyboardButton(
             text='1080P 1.7 GB fHD' if short_link else f"{imdb.get('title')}",
             url=short_link if short_link else imdb["url"],
-        )
-    ]
-]
+         )
+])
+        
 
 btn.append([
     InlineKeyboardButton(
