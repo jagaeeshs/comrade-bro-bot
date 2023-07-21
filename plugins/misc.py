@@ -180,47 +180,47 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     # Rest of your code...
 
     btn = [
-        [
-            InlineKeyboardButton(
-                text='144P 300 MB' if short_link else f"{imdb.get('title')}",
-                url=short_link if short_link else imdb["url"],
-            )
-        ]
-    ]
-
-     btn2 = [
-        [
-            InlineKeyboardButton(
-                text='360P 550 MB ' if short_link else f"{imdb.get('title')}",
-                url=short_link if short_link else imdb["url"],
-            )
-        ]
-    ]
-
-    btn3 = [
-        [
-            InlineKeyboardButton(
-                text='720P 900 MB ' if short_link else f"{imdb.get('title')}",
-                url=short_link if short_link else imdb["url"],
-            )
-        ]
-    ]
-
-   btn4 = [
-        [
-            InlineKeyboardButton(
-                text='1080P 1.7 GB fHD' if short_link else f"{imdb.get('title')}",
-                url=short_link if short_link else imdb["url"],
-            )
-        ]
-    ]
-    
-    btn.append([
+    [
         InlineKeyboardButton(
-            text="Post to Channel",
-            callback_data=f"imdb_post#{quer_y.message.id}",
+            text='144P 300 MB' if short_link else f"{imdb.get('title')}",
+            url=short_link if short_link else imdb["url"],
         )
-    ])
+    ]
+]
+
+btn2 = [
+    [
+        InlineKeyboardButton(
+            text='360P 550 MB' if short_link else f"{imdb.get('title')}",
+            url=short_link if short_link else imdb["url"],
+        )
+    ]
+]
+
+btn3 = [
+    [
+        InlineKeyboardButton(
+            text='720P 900 MB' if short_link else f"{imdb.get('title')}",
+            url=short_link if short_link else imdb["url"],
+        )
+    ]
+]
+
+btn4 = [
+    [
+        InlineKeyboardButton(
+            text='1080P 1.7 GB fHD' if short_link else f"{imdb.get('title')}",
+            url=short_link if short_link else imdb["url"],
+        )
+    ]
+]
+
+btn.append([
+    InlineKeyboardButton(
+        text="Post to Channel",
+        callback_data=f"imdb_post#{quer_y.message.id}",
+    )
+])
 
     
     message = quer_y.message.reply_to_message or quer_y.message
