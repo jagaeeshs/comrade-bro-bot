@@ -178,7 +178,16 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     
 
     # Rest of your code...
-btn = [
+
+    btn = [
+        [
+            InlineKeyboardButton(
+                text='📥 Download' if short_link else f"{imdb.get('title')}",
+                url=short_link if short_link else imdb["url"],
+            )
+        ]
+    ]
+    btn = [
     [
         InlineKeyboardButton(
             text='144P 300 MB' if short_link else f"{imdb.get('title')}",
@@ -215,65 +224,78 @@ btn.append([
     ),
 ])
 
-message = quer_y.message.reply_to_message or quer_y.message
+    btn.append([
+        InlineKeyboardButton(
+            text="Post to Channel",
+            callback_data=f"imdb_post#{quer_y.message.id}",
+        )
+    ])
 
-if imdb:
-    caption = IMDB_TEMPLATE.format(
-        query=imdb['title'],
-        title=imdb['title'],
-        votes=imdb['votes'],
-        aka=imdb["aka"],
-        seasons=imdb["seasons"],
-        box_office=imdb['box_office'],
-        localized_title=imdb['localized_title'],
-        kind=imdb['kind'],
-        imdb_id=imdb["imdb_id"],
-        cast=imdb["cast"],
-        runtime=imdb["runtime"],
-        countries=imdb["countries"],
-        certificates=imdb["certificates"],
-        languages=imdb["languages"],
-        director=imdb["director"],
-        writer=imdb["writer"],
-        producer=imdb["producer"],
-        composer=imdb["composer"],
-        cinematographer=imdb["cinematographer"],
-        music_team=imdb["music_team"],
-        distributors=imdb["distributors"],
-        release_date=imdb['release_date'],
-        year=imdb['year'],
-        genres=imdb['genres'],
-        poster=imdb['poster'],
-        plot=imdb['plot'],
-        rating=imdb['rating'],
-        url=imdb['url'],
-        **locals()
-    )
-
-else:
-    caption = "No Results"
-
-if imdb.get('poster'):
+    message = quer_y.message.reply_to_message or quer_y.message
+    if imdb:
+        caption = IMDB_TEMPLATE.format(
+            query = imdb['title'],
+            title = imdb['title'],
+            votes = imdb['votes'],
+            aka = imdb["aka"],
+            seasons = imdb["seasons"],
+            box_office = imdb['box_office'],
+            localized_title = imdb['localized_title'],
+            kind = imdb['kind'],
+            imdb_id = imdb["imdb_id"],
+            cast = imdb["cast"],
+            runtime = imdb["runtime"],
+            countries = imdb["countries"],
+            certificates = imdb["certificates"],
+            languages = imdb["languages"],
+            director = imdb["director"],
+            writer = imdb["writer"],
+            producer = imdb["producer"],
+            composer = imdb["composer"],
+            cinematographer = imdb["cinematographer"],
+            music_team = imdb["music_team"],
+            distributors = imdb["distributors"],
+            release_date = imdb['release_date'],
+            year = imdb['year'],
+            genres = imdb['genres'],
+            poster = imdb['poster'],
+            plot = imdb['plot'],
+            rating = imdb['rating'],
+            url = imdb['url'],
+            **locals()
+        )
+        
+    else:
+        caption = "No Results"
+    if imdb.get('poster'):
+        try:
+            await quer_y.message.reply_photo(photo=imdb['poster'], caption=caption, reply_markup=InlineKeyboardMarkup(btn))
+        except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
+            pic = imdb.get('poster')
+            poster = pic.replace('.jpg', "._V1_UX360.jpg")
+            await quer_y.message.reply_photo(photo=poster, caption=caption, reply_markup=InlineKeyboardMarkup(btn))
+        except Exception as e:
+            logger.exception(e)
+            await quer_y.message.reply(caption, reply_markup=InlineKeyboardMarkup(btn))
+        await quer_y.message.delete()
+    else:
+        await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
+    await quer_y.answer()
+@Client.on_callback_query(filters.regex('^imdb_post'))
+async def imdb_post_callback(bot: Client, query: CallbackQuery):
+    chat_id = -1001421748926  # Replace with your channel ID
+    
     try:
-        await quer_y.message.reply_photo(
-            photo=imdb['poster'],
-            caption=caption,
-            reply_markup=InlineKeyboardMarkup(btn),
-        )
-    except (MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty):
-        pic = imdb.get('poster')
-        poster = pic.replace('.jpg', "._V1_UX360.jpg")
-        await quer_y.message.reply_photo(
-            photo=poster,
-            caption=caption,
-            reply_markup=InlineKeyboardMarkup(btn),
-        )
+        new_markup = query.message.reply_markup
+        new_markup.inline_keyboard.pop()  # Remove the last row containing the "Post to Channel" button
+        download_button = InlineKeyboardButton(text='How to Download', url="https://t.me/filmztube_openlink/27")
+        new_markup.inline_keyboard.append([download_button])
+        sti_id = "CAACAgUAAxkBAAEJtERks0gX078KMdOlHbR72bMDnD2FdQACDgADQ3PJEgsK7SMGumuoLwQ"
+        
+        await query.message.edit_reply_markup(reply_markup=new_markup)  # Remove inline keyboard
+        message = await query.message.copy(chat_id)
+        await bot.send_sticker(chat_id=chat_id, sticker=sti_id)
+
+        await query.answer("Message copied to channel!")
     except Exception as e:
-        logger.exception(e)
-        await quer_y.message.reply(caption, reply_markup=InlineKeyboardMarkup(btn))
-    await quer_y.message.delete()
-else:
-    await quer_y.message.edit(caption, reply_markup=InlineKeyboardMarkup(btn))
-
-await quer_y.answer()
-
+        await query.answer(f"Failed to copy message to channel: {str(e)}", show_alert=True)
