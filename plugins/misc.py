@@ -221,9 +221,7 @@ btn.append([
         callback_data=f"imdb_post#{quer_y.message.id}",
     )
 ])
-
-    
-    message = quer_y.message.reply_to_message or quer_y.message
+message = quer_y.message.reply_to_message or quer_y.message
     if imdb:
         caption = IMDB_TEMPLATE.format(
             query = imdb['title'],
