@@ -1,3 +1,4 @@
+
 import hashlib
 import requests
 import os
@@ -245,12 +246,12 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     await quer_y.answer()
 @Client.on_callback_query(filters.regex('^imdb_post'))
 async def imdb_post_callback(bot: Client, query: CallbackQuery):
-    chat_id = -1001421748926  # Replace with your channel ID
+    chat_id = -1001988087199  # Replace with your channel ID
     
     try:
         new_markup = query.message.reply_markup
         new_markup.inline_keyboard.pop()  # Remove the last row containing the "Post to Channel" button
-        download_button = InlineKeyboardButton(text='How to Download', url="https://t.me/filmztube_openlink/27")
+        download_button = InlineKeyboardButton(text='How to Download', url="https://t.me/j7net/10")
         new_markup.inline_keyboard.append([download_button])
         sti_id = "CAACAgUAAxkBAAEJtERks0gX078KMdOlHbR72bMDnD2FdQACDgADQ3PJEgsK7SMGumuoLwQ"
         
