@@ -1,7 +1,7 @@
 import re
 from os import environ
 from utils import get_shortlink
-from  misc import short_link
+from  misc import imdb_search
 
 id_pattern = re.compile(r'^.\d+$')
 def is_enabled(value, default):
