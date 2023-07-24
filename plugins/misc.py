@@ -183,7 +183,7 @@ async def imdb_callback(bot: Client, quer_y: CallbackQuery):
     btn = [
         [
             InlineKeyboardButton(
-                text='📥 Download' if short_link else f"{imdb.get('title')}",
+                text='📥 Download ALL☝️' if short_link else f"{imdb.get('title')}",
                 url=short_link if short_link else imdb["url"],
             )
         ]
