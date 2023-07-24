@@ -152,7 +152,7 @@ async def imdb_search(client, message):
             [
                 InlineKeyboardButton(
                     text=f"{movie.get('title')} - {movie.get('year')}",
-                    callback_data=f"search#{movie.movieID}{'#' + short_link if  abd_1 else ''}",
+                    callback_data=f"search#{movie.movieID}{ short_link if  abd_1 else ''}",
 
                 )
             ]
