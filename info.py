@@ -1,17 +1,4 @@
-import re
-from os import environ
 
-
-id_pattern = re.compile(r'^.\d+$')
-def is_enabled(value, default):
-    if value.lower() in ["true", "yes", "1", "enable", "y"]:
-        return True
-    elif value.lower() in ["false", "no", "0", "disable", "n"]:
-        return False
-    else:
-        return default
-
-# Bot information
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', ''))
 API_HASH = environ.get('API_HASH', '')
@@ -63,15 +50,7 @@ lazy_renamers = [int(lazrenamers) if id_pattern.search(lazrenamers) else lazrena
 LAZY_RENAMERS = (lazy_renamers + ADMINS) if lazy_renamers else []
 REQ_CHANNEL = int(environ.get('REQ_CHANNEL','-1001863340529'))
 
-#ai
-AI = is_enabled((environ.get("AI","False")), False)
-OPENAI_API = environ.get("OPENAI_API","")
-LAZY_AI_LOGS = int(environ.get("LAZY_AI_LOGS","-1001877472322")) #GIVE YOUR NEW LOG CHANNEL ID TO STORE MESSAGES THAT THEY SEARCH IN BOT PM.... [ i have added this to keep an eye on the users message, to avoid misuse of LazyPrincess ]
-# Requested Content template variables ---
-ADMIN_USRNM = environ.get('ADMIN_USRNM','bharath_boy') # WITHOUT @
-MAIN_CHANNEL_USRNM = environ.get('MAIN_CHANNEL_USRNM','filmztube') # WITHOUT @
-DEV_CHANNEL_USRNM = environ.get('DEV_CHANNEL_USRNM','filmz_tube') # WITHOUT @
-LAZY_YT_HANDLE = environ.get('LAZY_YT_HANDLE',None)  # WITHOUT @ [  add only handle - don't add full url  ] 
+] 
 MOVIE_GROUP_USERNAME = environ.get('MOVIE_GROUP_USERNAME', "filmz_tube") #[ without @ ]
 
 # Url Shortner
@@ -80,11 +59,7 @@ URL_SHORTENR_WEBSITE = environ.get('URL_SHORTENR_WEBSITE', 'tnshort.net') #Alway
 URL_SHORTNER_WEBSITE_API = environ.get('URL_SHORTNER_WEBSITE_API', 'f5760039a7c4bf3fddd00c4297dfad9ff82ce46a')
 LZURL_PRIME_USERS = [int(lazyurlers) if id_pattern.search(lazyurlers) else lazyurlers for lazyurlers in environ.get('LZURL_PRIME_USERS', '634637418').split()]
 
-# Auto Delete For Group Message (Self Delete) #
-SELF_DELETE_SECONDS = int(environ.get('SELF_DELETE_SECONDS', 180))
-SELF_DELETE = is_enabled((environ.get('SELF_DELETE','True')), False)
 
-# Download Tutorial Button #
 DOWNLOAD_TEXT_NAME = "📥 HOW TO DOWNLOAD 📥"
 DOWNLOAD_TEXT_URL = "https://t.me/Netflix_weblinks/13"
 
