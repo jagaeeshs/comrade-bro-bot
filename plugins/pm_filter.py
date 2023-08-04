@@ -9,17 +9,7 @@ from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidD
 from Script import script
 import pyrogram
 from database.connections_mdb import active_connection, all_connections, delete_connection, if_active, make_active, \
-    make_inactive
-from info import *
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ForceReply
-from pyrogram import Client, filters, enums
-from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified
-from utils import get_size, is_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings
-from database.users_chats_db import db
-from database.ia_filterdb import Media, get_file_details, get_search_results
-from database.lazy_utils import progress_for_pyrogram, convert, humanbytes
-from hachoir.metadata import extractMetadata
-from hachoir.parser import createParser
+
 import os 
 import humanize
 from PIL import Image
@@ -180,22 +170,7 @@ async def next_page(bot, query):
         # else:
         #     # create a new entry for the user in the download counts dictionary
         #     download_counts[query.from_user.id] = {'date': current_date, 'count': 1}d
-    if settings['button']:
-            if URL_MODE is True:
-                if query.from_user.id in ADMINS:
-                    btn = [
-                        [
-                            InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
-                            ),
-                        ]
-                        for file in files
-                    ]
-                elif query.from_user.id in LZURL_PRIME_USERS:
-                    btn = [
-                        [
-                            InlineKeyboardButton(
-                                text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
                             ),
                         ]
                         for file in files
